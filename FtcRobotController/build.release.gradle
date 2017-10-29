@@ -1,9 +1,9 @@
 dependencies {
-    compile project(':RobotCore')
-    compile project(':Inspection')
-    compile project(':Blocks')
-    compile project(':Hardware')
-    compile project(':FtcCommon')
-    compile (name:'Analytics-release', ext:'aar')
-    compile (name:'WirelessP2p-release', ext:'aar')
+    implementation project(':RobotCore')
+    implementation project(':Inspection')
+    implementation project(':Blocks')
+    implementation project(':Hardware')
+    implementation project(':FtcCommon')
+    implementation (name:'Analytics-release', ext:'aar')
+    implementation (name:'WirelessP2p-release', ext:'aar')
 }

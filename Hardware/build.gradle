@@ -27,5 +27,5 @@ repositories {
 }
 
 dependencies {
-    compile project(':RobotCore')
+    implementation project(':RobotCore')
 }

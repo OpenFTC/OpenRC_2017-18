@@ -27,8 +27,8 @@ repositories {
 }
 
 dependencies {
-    compile project(':RobotCore')
-    compile project(':FtcCommon')
-    compile project(':Hardware')
-    compile project(':Inspection')
+    implementation project(':RobotCore')
+    implementation project(':FtcCommon')
+    implementation project(':Hardware')
+    implementation project(':Inspection')
 }
