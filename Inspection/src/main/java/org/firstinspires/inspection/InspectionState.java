@@ -38,6 +38,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.util.Log;
 
 import com.qualcomm.robotcore.util.Device;
 

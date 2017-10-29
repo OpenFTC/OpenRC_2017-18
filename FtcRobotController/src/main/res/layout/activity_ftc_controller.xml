@@ -176,6 +176,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       android:visibility="invisible"
       android:text="" />
 
+    <TextView
+        android:id="@+id/openftc_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:text="" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textGamepad1"
+        android:layout_alignParentStart="true"
+        android:text="OpenFTC Version: "
+        android:id="@+id/textView2" />
+
   </RelativeLayout>
 
   <WebView

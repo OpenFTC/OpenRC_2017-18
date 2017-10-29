@@ -61,6 +61,7 @@ import com.google.blocks.ftcrobotcontroller.ProgrammingModeActivity;
 import com.google.blocks.ftcrobotcontroller.ProgrammingModeControllerImpl;
 import com.google.blocks.ftcrobotcontroller.ProgrammingWebHandlers;
 import com.google.blocks.ftcrobotcontroller.runtime.BlocksOpMode;
+import com.openftc.OpenFTCConfig;
 import com.qualcomm.ftccommon.AboutActivity;
 import com.qualcomm.ftccommon.ClassManagerFactory;
 import com.qualcomm.ftccommon.FtcEventLoop;
@@ -143,6 +144,8 @@ public class FtcRobotControllerActivity extends Activity
   protected TextView textOpMode;
   protected TextView textErrorMessage;
   protected ImmersiveMode immersion;
+
+  protected TextView textOpenFTCVersion;
 
   protected UpdateUI updateUI;
   protected Dimmer dimmer;
@@ -280,6 +283,13 @@ public class FtcRobotControllerActivity extends Activity
     textErrorMessage = (TextView) findViewById(R.id.textErrorMessage);
     textGamepad[0] = (TextView) findViewById(R.id.textGamepad1);
     textGamepad[1] = (TextView) findViewById(R.id.textGamepad2);
+
+    textOpenFTCVersion = (TextView) findViewById(R.id.openftc_version);
+    textOpenFTCVersion.setText(OpenFTCConfig.VERSION_NAME);
+
+    RobotLog.v(TAG, "THIS SOFTWARE HAS BEEN MODIFIED.");
+    RobotLog.v(TAG, "OpenFTC Version: " + OpenFTCConfig.VERSION_NAME);
+
     immersion = new ImmersiveMode(getWindow().getDecorView());
     dimmer = new Dimmer(this);
     dimmer.longBright();
@@ -405,6 +415,7 @@ public class FtcRobotControllerActivity extends Activity
     RobotLog.logBuildConfig(com.qualcomm.ftccommon.BuildConfig.class);
     RobotLog.logBuildConfig(com.google.blocks.BuildConfig.class);
     RobotLog.logBuildConfig(org.firstinspires.inspection.BuildConfig.class);
+    RobotLog.logBuildConfig(com.openftc.OpenFTCConfig.class);
   }
 
   protected void readNetworkType() {
