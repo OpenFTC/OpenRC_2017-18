@@ -33,11 +33,10 @@ import java.util.concurrent.TimeUnit;
  * @author lizlooney@google.com (Liz Looney)
  */
 public abstract class AbstractProgrammingModeActivity extends ThemedActivity {
+    private final Timer timer = new Timer();
   private Context context;
   private TextView textViewLog;
-
   private TableLayout tableLayoutActiveConnections;
-  private final Timer timer = new Timer();
   private volatile TimerTask timerTask;
   private PingDetailsHolder pingDetailsHolder = new PingDetailsHolder();
   private volatile List<PingDetails> currentPingDetails;
@@ -179,7 +178,7 @@ public abstract class AbstractProgrammingModeActivity extends ThemedActivity {
    * typeface.
    */
   private void setTypeface() {
-    Typeface typeface = Typeface.create(Typeface.SERIF, 0);
+      Typeface typeface = Typeface.create(Typeface.SERIF, Typeface.NORMAL);
 
     TextView textView;
 
