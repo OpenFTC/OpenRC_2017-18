@@ -1,6 +1,8 @@
-# Contributing to the FTC SDK
+# Contributing to the OpenFTC SDK
 
-The following is a set of guidelines for contributing the FIRST FTC SDK.  The FTC Technology Team welcomes suggestions for improvements to core software, ideas for new features, requests for built-in support of new sensors, and well written bug reports.
+The following is a set of guidelines for contributing the OpenFTC SDK. OpenFTC welcomes suggestions for improvements to core software, ideas for new features, requests for built-in support of new sensors, and well written bug reports. Our goal is to add features faster and more broadly than would FIRST in the official SDK, since they can't accept modifications to core files.
+
+Note: this is not the official FIRST-provided FTC SDK. Most, if not all, changes made here will likely never be merged into the official SDK, but the OpenFTC SDK will be kept up to date with official features. 
 
 ## How can I contribute?
 
@@ -10,9 +12,9 @@ __STOP!__  If you are new to git, do not understand the mechanics of forks, bran
 
 ![Pull Button](../doc/media/PullRequest.PNG)
 
-If you are looking at this button then you've pushed some changes to your team's fork of ftctechnh/ftc_app.  Congratulations!  You are almost certainly finished.
+If you are looking at this button then you've pushed some changes to your team's fork of OpenFTC/OpenFTC-app.  Congratulations!  You are almost certainly finished.
 
-The vast majority of pull requests seen on the ftctechnh/ftc_app repository are not intended to be merged into the official SDK.  Team software is just that, your team's.  It's specific to the tasks you are trying to accomplish, the testing you are doing, and goals your team has.  You don't want that pushed into the official SDK.
+The vast majority of pull requests seen on the OpenFTC/OpenFTC-app repository are not intended to be merged into the unofficial SDK.  Team software is just that, your team's.  It's specific to the tasks you are trying to accomplish, the testing you are doing, and goals your team has.  You don't want that pushed into the official SDK.
 
 If what you've read so far makes little sense, there are some very good git learning resources online.  
 [Git Book](https://git-scm.com/book/en/v2)  
@@ -38,13 +40,18 @@ This section guides you through filing a bug report.  The better the report the 
 
 #### Before submitting a bug report
 
-- Check the [forums](http://ftcforum.usfirst.org/forum.php) to see if someone else has run into the problem and whether there is an official solution that doesn't require a new SDK.
+- Make sure that your bug is specific to the OpenFTC SDK. If the bug still occurs while using the official FTC SDK, your bug report should be reported to the [official SDK](https://github.com/ftctechnh/ftc_app).
 
-- Perform a search of current [issues](https://github.com/ftctechnh/ftc_app/issues) to see if the problem has already been reported.  If so, add a comment to the existing issue instead of creating a new one.
+- Perform a search of current [OpenFTC-app issues](https://github.com/OpenFTC/OpenFTC-app/issues) to see if the problem has already been reported.  If so, add a comment to the existing issue instead of creating a new one.
+
+- Perform a search of current [official ftc_app issues](https://github.com/ftctechnh/ftc_app/issues) to see if the problem has already been reported.  If so, add a comment to the existing issue instead of creating a new one.
+
+- Check the [forums](http://ftcforum.usfirst.org/forum.php) to see if someone else has run into the problem and whether there is an official solution that has either 1) already been merged into the official SDK, or 2) is being investigated by the FIRST team.
+
 
 #### How Do I Submit A (Good) Bug Report?
 
-Bugs are tracked as GitHub issues. Create an issue on ftctechnh/ftc_app and provide the following information.
+Bugs are tracked as GitHub issues. Create an issue on OpenFTC/OpenFTC-app and provide the following information.
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
 - Use a clear and descriptive title for the issue to identify the problem.
@@ -65,4 +72,8 @@ FIRST volunteers are awesome.  You all have great ideas and we want to hear them
 
 Enhancements should be broadly applicable to a large majority of teams, should not force teams to change their workflow, and should provide real value to the mission of FIRST as it relates to engaging youth in engineering activities.
 
-The best way to get momentum behind new features is to post a description of your idea in the forums.  Build community support for it.  The FTC Technology Team monitors the forums.  We'll hear you and if there's a large enough call for the feature it's very likely to get put on the list for a future release.
+Other enhancements will also likely be accepted, as long as they still do not force teams to change their workflow. Changes made in the OpenFTC SDK should allow teams to move from the official SDK to OpenFTC-app with no code changes required.
+
+To request a new feature, you can open an issue on this repository. You may want to discuss your ideas on the unofficial Discord server or the FTC forums, and they may even be added to the official SDK. If there's a large enough call for the feature, it's very likely to be added to the list for a future release.
+
+Don't be afraid to build out a feature yourself! To merge it into the OpenFTC SDK, just open a pull request and we'll discuss any modifications that need to be made. 
