@@ -44,10 +44,12 @@ public class BlocksOpMode extends LinearOpMode {
   private static final String LOG_PREFIX = "BlocksOpMode - ";
 
   private static final AtomicReference<String> fatalErrorMessageHolder = new AtomicReference<String>();
+
+  private static Activity activity;
+  private static WebView webView;
   private static final AtomicReference<String> nameOfOpModeLoadedIntoWebView = new AtomicReference<String>();
   private static final Map<String, Access> javascriptInterfaces = new ConcurrentHashMap<String, Access>();
-    private static Activity activity;
-    private static WebView webView;
+
   private final String project;
   private final String logPrefix;
   private final AtomicLong interruptedTime = new AtomicLong();
@@ -64,61 +66,6 @@ public class BlocksOpMode extends LinearOpMode {
     this.project = project;
     logPrefix = LOG_PREFIX + "\"" + project + "\" - ";
   }
-
-    /**
-     * Sets the {@link WebView} so that all BlocksOpModes can access it.
-     */
-    public static void setActivityAndWebView(Activity a, WebView wv) {
-        if (activity == null && webView == null) {
-            addOpModeRegistrar();
-        }
-
-        activity = a;
-        webView = wv;
-        webView.getSettings().setJavaScriptEnabled(true);
-
-        webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                RobotLog.i(LOG_PREFIX + "onConsoleMessage.message() " + consoleMessage.message());
-                RobotLog.i(LOG_PREFIX + "onConsoleMessage.lineNumber() " + consoleMessage.lineNumber());
-                // If a hardware device is used in blocks, but has been removed (or renamed) in the
-                // configuration, there will be a console message like this:
-                // "ReferenceError: left_drive is not defined".
-                String message = consoleMessage.message();
-                if (message.startsWith(REFERENCE_ERROR_PREFIX)) {
-                    RobotLog.e(LOG_PREFIX + "fatalErrorMessage: " + message);
-                    fatalErrorMessageHolder.compareAndSet(null, message);
-                }
-                return false; // continue with console logging.
-            }
-        });
-    }
-
-    private static void addOpModeRegistrar() {
-        RegisteredOpModes.getInstance().addInstanceOpModeRegistrar(new InstanceOpModeRegistrar() {
-            @Override
-            public void register(InstanceOpModeManager manager) {
-                try {
-                    // fetchEnabledProjectsWithJavaScript is thread-safe wrt concurrent saves from the browswer
-                    List<OpModeMeta> projects = ProjectsUtil.fetchEnabledProjectsWithJavaScript();
-                    for (OpModeMeta opModeMeta : projects) {
-                        manager.register(opModeMeta, new BlocksOpMode(opModeMeta.name));
-                    }
-                } catch (Exception e) {
-                    RobotLog.logStackTrace(e);
-                }
-            }
-        });
-    }
-
-    /**
-     * @deprecated functionality now automatically called by the system
-     */
-    @Deprecated
-    public static void registerAll(OpModeManager manager) {
-        RobotLog.w(BlocksOpMode.class.getSimpleName(), "registerAll(OpModeManager) is deprecated and will be removed soon, as calling it is unnecessary in this and future API version");
-    }
 
   private String getLogPrefix() {
     Thread thread = Thread.currentThread();
@@ -335,17 +282,17 @@ public class BlocksOpMode extends LinearOpMode {
     }
   }
 
-    @SuppressLint("JavascriptInterface")
-    private void addJavascriptInterfaces(HardwareItemMap hardwareItemMap) {
-        addJavascriptInterfacesForIdentifiers();
-        addJavascriptInterfacesForHardware(hardwareItemMap);
+  @SuppressLint("JavascriptInterface")
+  private void addJavascriptInterfaces(HardwareItemMap hardwareItemMap) {
+    addJavascriptInterfacesForIdentifiers();
+    addJavascriptInterfacesForHardware(hardwareItemMap);
 
-        for (Map.Entry<String, Access> entry : javascriptInterfaces.entrySet()) {
-            String identifier = entry.getKey();
-            Access access = entry.getValue();
-            webView.addJavascriptInterface(access, identifier);
-        }
+    for (Map.Entry<String, Access> entry : javascriptInterfaces.entrySet()) {
+      String identifier = entry.getKey();
+      Access access = entry.getValue();
+      webView.addJavascriptInterface(access, identifier);
     }
+  }
 
   // Visible for testing
   void addJavascriptInterfacesForIdentifiers() {
@@ -482,6 +429,33 @@ public class BlocksOpMode extends LinearOpMode {
     }
   }
 
+  private class BlocksOpModeAccess extends Access {
+    private final Object scriptFinishedLock;
+    private final AtomicBoolean scriptFinished;
+
+    private BlocksOpModeAccess(String identifier, Object scriptFinishedLock, AtomicBoolean scriptFinished) {
+      super(BlocksOpMode.this, identifier);
+      this.scriptFinishedLock = scriptFinishedLock;
+      this.scriptFinished = scriptFinished;
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void scriptStarting() {
+      RobotLog.i(getLogPrefix() + "scriptStarting");
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void scriptFinished() {
+      RobotLog.i(getLogPrefix() + "scriptFinished");
+      synchronized (scriptFinishedLock) {
+        scriptFinished.set(true);
+        scriptFinishedLock.notifyAll();
+      }
+    }
+  }
+
   private void loadScript() throws IOException {
     nameOfOpModeLoadedIntoWebView.set(project);
     HardwareItemMap hardwareItemMap = HardwareItemMap.newHardwareItemMap(hardwareMap);
@@ -521,30 +495,57 @@ public class BlocksOpMode extends LinearOpMode {
     nameOfOpModeLoadedIntoWebView.set(null);
   }
 
-    private class BlocksOpModeAccess extends Access {
-        private final Object scriptFinishedLock;
-        private final AtomicBoolean scriptFinished;
-
-        private BlocksOpModeAccess(String identifier, Object scriptFinishedLock, AtomicBoolean scriptFinished) {
-            super(BlocksOpMode.this, identifier);
-            this.scriptFinishedLock = scriptFinishedLock;
-            this.scriptFinished = scriptFinished;
-        }
-
-        @SuppressWarnings("unused")
-        @JavascriptInterface
-        public void scriptStarting() {
-            RobotLog.i(getLogPrefix() + "scriptStarting");
-        }
-
-        @SuppressWarnings("unused")
-        @JavascriptInterface
-        public void scriptFinished() {
-            RobotLog.i(getLogPrefix() + "scriptFinished");
-            synchronized (scriptFinishedLock) {
-                scriptFinished.set(true);
-                scriptFinishedLock.notifyAll();
-            }
+  /**
+   * Sets the {@link WebView} so that all BlocksOpModes can access it.
+   */
+  public static void setActivityAndWebView(Activity a, WebView wv) {
+    if (activity == null && webView == null) {
+      addOpModeRegistrar();
     }
+
+    activity = a;
+    webView = wv;
+    webView.getSettings().setJavaScriptEnabled(true);
+
+    webView.setWebChromeClient(new WebChromeClient() {
+      @Override
+      public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+        RobotLog.i(LOG_PREFIX + "onConsoleMessage.message() " + consoleMessage.message());
+        RobotLog.i(LOG_PREFIX + "onConsoleMessage.lineNumber() " + consoleMessage.lineNumber());
+        // If a hardware device is used in blocks, but has been removed (or renamed) in the
+        // configuration, there will be a console message like this:
+        // "ReferenceError: left_drive is not defined".
+        String message = consoleMessage.message();
+        if (message.startsWith(REFERENCE_ERROR_PREFIX)) {
+          RobotLog.e(LOG_PREFIX + "fatalErrorMessage: " + message);
+          fatalErrorMessageHolder.compareAndSet(null, message);
+        }
+        return false; // continue with console logging.
+      }
+    });
+  }
+
+  private static void addOpModeRegistrar() {
+    RegisteredOpModes.getInstance().addInstanceOpModeRegistrar(new InstanceOpModeRegistrar() {
+      @Override public void register(InstanceOpModeManager manager) {
+        try {
+          // fetchEnabledProjectsWithJavaScript is thread-safe wrt concurrent saves from the browswer
+          List<OpModeMeta> projects = ProjectsUtil.fetchEnabledProjectsWithJavaScript();
+          for (OpModeMeta opModeMeta : projects) {
+            manager.register(opModeMeta, new BlocksOpMode(opModeMeta.name));
+          }
+        } catch (Exception e) {
+          RobotLog.logStackTrace(e);
+        }
+      }
+    });
+  }
+
+  /**
+   * @deprecated functionality now automatically called by the system
+   */
+  @Deprecated
+  public static void registerAll(OpModeManager manager) {
+    RobotLog.w(BlocksOpMode.class.getSimpleName(), "registerAll(OpModeManager) is deprecated and will be removed soon, as calling it is unnecessary in this and future API version");
   }
 }
