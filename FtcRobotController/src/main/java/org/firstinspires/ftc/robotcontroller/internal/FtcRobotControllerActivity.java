@@ -285,7 +285,7 @@ public class FtcRobotControllerActivity extends Activity
     textGamepad[1] = (TextView) findViewById(R.id.textGamepad2);
 
     textOpenFTCVersion = (TextView) findViewById(R.id.openftc_version);
-    textOpenFTCVersion.setText(OpenFTCConfig.VERSION_NAME);
+    textOpenFTCVersion.setText(OpenFTCConfig.VERSION_COMPLETE);
 
     RobotLog.v(TAG, "THIS SOFTWARE HAS BEEN MODIFIED.");
     RobotLog.v(TAG, "OpenFTC Version: " + OpenFTCConfig.VERSION_NAME);

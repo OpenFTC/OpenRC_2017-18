@@ -64,7 +64,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       android:textColor="?attr/textWhite"
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:padding="8dp"
-      android:textStyle="bold"/>
+      android:textStyle="bold"
+      tools:text="9999-RC"/>
+
+    <TextView
+        android:id="@+id/openftc_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/robotIcon"
+        android:layout_below="@id/textDeviceName"
+        android:textColor="?attr/textWhite"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:padding="8dp"
+        android:textStyle="bold"
+        tools:text="OpenFTC v1.0" />
 
     <ImageButton
       android:id="@+id/menu_buttons"
@@ -175,23 +188,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       android:textStyle="bold"
       android:visibility="invisible"
       android:text="" />
-
-    <TextView
-        android:id="@+id/openftc_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2"
-        android:text="" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textGamepad1"
-        android:layout_alignParentStart="true"
-        android:text="OpenFTC Version: "
-        android:id="@+id/textView2" />
 
   </RelativeLayout>
 
