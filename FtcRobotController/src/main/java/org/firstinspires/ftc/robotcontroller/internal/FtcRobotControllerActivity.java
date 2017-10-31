@@ -287,9 +287,6 @@ public class FtcRobotControllerActivity extends Activity
     textOpenFTCVersion = (TextView) findViewById(R.id.openftc_version);
     textOpenFTCVersion.setText(OpenFTCConfig.VERSION_COMPLETE);
 
-    RobotLog.v(TAG, "THIS SOFTWARE HAS BEEN MODIFIED.");
-    RobotLog.v(TAG, "OpenFTC Version: " + OpenFTCConfig.VERSION_NAME);
-
     immersion = new ImmersiveMode(getWindow().getDecorView());
     dimmer = new Dimmer(this);
     dimmer.longBright();
@@ -409,6 +406,9 @@ public class FtcRobotControllerActivity extends Activity
   }
 
   protected void logPackageVersions() {
+    RobotLog.v("THIS APP WAS MADE FROM OpenFTC, A MODIFIED VERSION OF THE SDK.");
+    RobotLog.v("You can find more information at http://OpenFTC.org or the About screen.");
+    RobotLog.v("OpenFTC Version: " + OpenFTCConfig.VERSION_COMPLETE);
     RobotLog.logBuildConfig(com.qualcomm.ftcrobotcontroller.BuildConfig.class);
     RobotLog.logBuildConfig(com.qualcomm.robotcore.BuildConfig.class);
     RobotLog.logBuildConfig(com.qualcomm.hardware.BuildConfig.class);
