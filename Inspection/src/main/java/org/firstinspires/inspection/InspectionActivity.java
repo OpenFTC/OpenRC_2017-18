@@ -35,7 +35,6 @@ package org.firstinspires.inspection;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -319,7 +318,7 @@ public abstract class InspectionActivity extends ThemedActivity
         appsOkay = refreshPackage(txtIsRCInstalled, state.robotControllerVersion, state.robotControllerVersionCode, RC_MIN_VERSIONCODE) && appsOkay;
         appsOkay = refreshPackage(txtIsDSInstalled, state.driverStationVersion, state.driverStationVersionCode, DS_MIN_VERSIONCODE) && appsOkay;
 
-        refresh(txtOpenFTCVersion, OpenFTCConfig.VERSION_NAME, true);
+        refresh(txtOpenFTCVersion, OpenFTCConfig.VERSION_COMPLETE, true);
 
         if (!state.isRobotControllerInstalled() && !state.isDriverStationInstalled()
             || state.isRobotControllerInstalled() && state.isDriverStationInstalled())
