@@ -4,6 +4,7 @@ dependencies {
     implementation project(':Blocks')
     implementation project(':Hardware')
     implementation project(':FtcCommon')
+    implementation project(':OpenFTC')
     implementation(name: 'Analytics-release', ext: 'aar')
     implementation(name: 'WirelessP2p-release', ext: 'aar')
 }

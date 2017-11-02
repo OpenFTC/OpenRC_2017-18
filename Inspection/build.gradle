@@ -29,4 +29,5 @@ repositories {
 
 dependencies {
     implementation project(':RobotCore')
+    implementation project(':OpenFTC')
 }
