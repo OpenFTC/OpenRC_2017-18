@@ -13,6 +13,8 @@ OpenFTC-app provides teams a new way to use the [FTC SDK](https://github.com/ftc
 
 This system allows pull requests and enhancements to the code of the entire SDK, and can allow teams to understand the structure and functionality of the whole system.
 
+OpenFTC uses Android Gradle plugin 3.0.0. It requires Android Studio 3.0 and Android SDK 26.
+
 ## Welcome!
 This GitHub repository contains the source code that is used to build an Android app to control a *FIRST* Tech Challenge competition robot.  To use this SDK, download/clone the entire project to your local computer.
 
