@@ -1,4 +1,4 @@
-OpenFTC-app
+OpenFTC-app [![Build Status](https://travis-ci.org/OpenFTC/OpenFTC-app.svg?branch=master)](https://travis-ci.org/OpenFTC/OpenFTC-app)
 ---
 
 OpenFTC-app is currently based on version 3.5 of the SDK. Do not attempt to manually update beyond that yourself. OpenFTC will be updated within a week of new official app releases.
@@ -14,6 +14,8 @@ This system allows pull requests and enhancements to the code of the entire SDK,
 To request a new feature, you can open an issue on this repository. If there's a large enough call for the feature, it's very likely to be added to the list for a future release. 
 
 This version keeps the OnBotJava and Blocks programming system. If your team doesn't use these, you may want to look into [OpenFTC-app-turbo](https://github.com/OpenFTC/OpenFTC-app-turbo), which helps to decrease deploy times. 
+
+OpenFTC uses Android Gradle plugin 3.0.0. It requires Android Studio 3.0 and Android SDK 26.
 
 ## Welcome!
 This GitHub repository contains the source code that is used to build an Android app to control a *FIRST* Tech Challenge competition robot.  To use this SDK, download/clone the entire project to your local computer.

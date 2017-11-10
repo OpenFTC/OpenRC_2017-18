@@ -2,6 +2,7 @@
 
 package com.google.blocks.ftcrobotcontroller.runtime;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
@@ -20,7 +21,6 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.InstanceOpModeManager;
 import org.firstinspires.ftc.robotcore.internal.opmode.InstanceOpModeRegistrar;
-import org.firstinspires.ftc.robotcore.internal.opmode.OpModeManagerImpl;
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeMeta;
 import org.firstinspires.ftc.robotcore.internal.opmode.RegisteredOpModes;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
@@ -282,6 +282,7 @@ public class BlocksOpMode extends LinearOpMode {
     }
   }
 
+  @SuppressLint("JavascriptInterface")
   private void addJavascriptInterfaces(HardwareItemMap hardwareItemMap) {
     addJavascriptInterfacesForIdentifiers();
     addJavascriptInterfacesForHardware(hardwareItemMap);

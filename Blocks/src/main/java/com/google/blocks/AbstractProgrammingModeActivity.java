@@ -179,7 +179,7 @@ public abstract class AbstractProgrammingModeActivity extends ThemedActivity {
    * typeface.
    */
   private void setTypeface() {
-    Typeface typeface = Typeface.create(Typeface.SERIF, 0);
+    Typeface typeface = Typeface.create(Typeface.SERIF, Typeface.NORMAL);
 
     TextView textView;
 
