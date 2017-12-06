@@ -334,10 +334,11 @@ public class NetworkConnectionHandler {
             if (sendLoopFuture == null || sendLoopFuture.isDone()) {
                 RobotLog.vv(TAG, "starting sending loop");
                 sendOnceRunnable = new SendOnceRunnable(context, clientCallback,  socket, lastRecvPacket, parameters);
+                // Set up sendOnceRunnable to execute every 40 ms, which will send all of the pending commands.
                 sendLoopFuture = sendLoopService.scheduleAtFixedRate(sendOnceRunnable, 0, 40, TimeUnit.MILLISECONDS);
             }
 
-            if (sendOnceRunnable != null) sendOnceRunnable.onPeerConnected(true);
+            if (sendOnceRunnable != null) sendOnceRunnable. onPeerConnected(true);
             if (clientCallback != null) clientCallback.peerConnected(true);
         }
     }

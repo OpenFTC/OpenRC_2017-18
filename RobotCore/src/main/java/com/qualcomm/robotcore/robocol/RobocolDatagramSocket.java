@@ -104,6 +104,7 @@ public class RobocolDatagramSocket {
         RobotLog.logExceptionHeader(TAG, e, "exception sending datagram");
 
       } catch (IOException e) {
+        // Always log the first IOException for sending. After that, only keep logging if DEBUG is true
         if (!sendErrorReported) {
           sendErrorReported = !DEBUG;
           RobotLog.logExceptionHeader(TAG, e, "exception sending datagram");
@@ -133,6 +134,7 @@ public class RobocolDatagramSocket {
         if (DEBUG) RobotLog.vv(TAG, String.format("received packet from=%s len=%d", packetRecv.getAddress().toString(), result.getPayloadLength()));
 
       } catch (SocketException|SocketTimeoutException e) {
+        // Always log the first exception for receiving. After that, only keep logging if DEBUG is true
         if (!recvErrorReported) {
           recvErrorReported = !DEBUG;
           RobotLog.logExceptionHeader(TAG, e, "no packet received");

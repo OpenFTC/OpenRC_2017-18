@@ -172,7 +172,7 @@ public class SendOnceRunnable implements Runnable {
                 }
 
                 // Commands that we originate we only send out every once in a while so as to give ack's a chance to get back to us
-                if (command.isAcknowledged() || command.shouldTransmit(nanotimeNow)) {
+                if (command.isAcknowledged() || command.shouldTransmit(nanotimeNow)) { //
                     // log commands we initiated, ack the ones we didn't
                     if (!command.isAcknowledged()) {
                         RobotLog.vv(TAG, "sending %s(%d), attempt: %d", command.getName(), command.getSequenceNumber(), command.getAttempts());
