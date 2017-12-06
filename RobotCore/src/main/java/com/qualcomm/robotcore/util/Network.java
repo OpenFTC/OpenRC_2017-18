@@ -170,7 +170,9 @@ public class Network {
 
         for (InetAddress addr : addresses) {
             String host = addr.getHostAddress();
-            if (host.contains("%")) host = host.substring(0, host.indexOf('%'));
+            if (host.contains("%")) {
+                host = host.substring(0, host.indexOf('%'));
+            }
             hostnames.add(host);
         }
 

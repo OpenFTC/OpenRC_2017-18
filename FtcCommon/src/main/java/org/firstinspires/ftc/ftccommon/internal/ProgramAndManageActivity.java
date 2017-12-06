@@ -224,7 +224,9 @@ public class ProgramAndManageActivity extends ThemedActivity {
                         : null;
 
                 // Null type check here is paranoia. Either way, first try what we've been asked for
-                if (type == null) type = "*/*";
+                if (type == null) {
+                    type = "*/*";
+                }
                 intentGetContent.setType(type);
 
                 // Try the system mime type map

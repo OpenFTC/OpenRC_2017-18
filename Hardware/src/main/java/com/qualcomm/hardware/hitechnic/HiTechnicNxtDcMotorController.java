@@ -328,19 +328,23 @@ public final class HiTechnicNxtDcMotorController extends HiTechnicNxtController 
         // so that the programmer's model is that he just needs to set the
         // mode and be done.
         for (; ; ) {
-            if (!this.isArmed()) break;
+            if (!this.isArmed()) {
+                break;
+            }
 
             byte bCurrentMode = (byte) (this.i2cDeviceSynch.read8(ADDRESS_MOTOR_MODE_MAP[motor]) & CHANNEL_MODE_MASK_SELECTION);
-            if (bCurrentMode == bNewMode)
+            if (bCurrentMode == bNewMode) {
                 break;
+            }
 
             /** According to the manufacturer, STOP_AND_RESET_ENCODER mode is supposed to auto-transition
              * to RUN_WITHOUT_ENCODER after performing the reset. We, ourselves, though, have never actually
              * observed this behavior for HiTechnic controllers. However, in the interests of robustness,
              * we allow for that transition. See also {@link ModernRoboticsUsbDcMotorController#finishModeSwitchIfNecessary}.
              */
-            if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER && bCurrentMode == bRunWithoutEncoderMode)
+            if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER && bCurrentMode == bRunWithoutEncoderMode) {
                 break;
+            }
 
             Thread.yield();
         }
@@ -353,7 +357,9 @@ public final class HiTechnicNxtDcMotorController extends HiTechnicNxtController 
         if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER) {
             // Unclear if this is needed, but anecdotes from (e.g.) Dryw Wade seem to indicate that it is
             while (this.internalQueryMotorCurrentPosition(motor) != 0) {
-                if (!this.isArmed()) break;
+                if (!this.isArmed()) {
+                    break;
+                }
                 Thread.yield();
             }
         } else {
@@ -371,8 +377,9 @@ public final class HiTechnicNxtDcMotorController extends HiTechnicNxtController 
                 internalSetMotorPower(motor, prevPower);
             } else if (mode == DcMotor.RunMode.RUN_TO_POSITION) {
                 double power = internalGetCachedOrQueriedMotorPower(motor);
-                if (power < 0)
+                if (power < 0) {
                     internalSetMotorPower(motor, Math.abs(power));
+                }
             }
 
             // If we just switched out of RESET_ENCODERS, attempt to restore the previous power setting.
@@ -464,25 +471,26 @@ public final class HiTechnicNxtDcMotorController extends HiTechnicNxtController 
 
     double internalGetCachedOrQueriedMotorPower(int motor) {
         Byte bPower = motors[motor].lastKnownPowerByte.getNonTimedValue();
-        if (bPower != null)
+        if (bPower != null) {
             return internalMotorPowerFromByte(motor, bPower);
-        else
+        } else {
             return internalQueryMotorPower(motor);
+        }
     }
 
     double internalMotorPowerFromByte(int motor, byte bPower) {
-        if (bPower == bPowerFloat)
+        if (bPower == bPowerFloat) {
             return 0.0; // Float counts as zero power
-        else {
+        } else {
             DcMotor.RunMode mode = internalGetCachedOrQueriedRunMode(motor);
             return internalMotorPowerFromByte(motor, bPower, mode);
         }
     }
 
     double internalMotorPowerFromByte(int motor, byte bPower, DcMotor.RunMode mode) {
-        if (bPower == bPowerFloat)
+        if (bPower == bPowerFloat) {
             return 0.0; // Float counts as zero power
-        else {
+        } else {
             double power = Range.scale(bPower, bPowerMin, bPowerMax, apiPowerMin, apiPowerMax);
             return Range.clip(power, apiPowerMin, apiPowerMax);
         }
@@ -498,8 +506,9 @@ public final class HiTechnicNxtDcMotorController extends HiTechnicNxtController 
     @Override
     public synchronized void setMotorZeroPowerBehavior(int motor, DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
         this.validateMotor(motor);
-        if (zeroPowerBehavior == DcMotor.ZeroPowerBehavior.UNKNOWN)
+        if (zeroPowerBehavior == DcMotor.ZeroPowerBehavior.UNKNOWN) {
             throw new IllegalArgumentException("zeroPowerBehavior may not be UNKNOWN");
+        }
         finishModeSwitchIfNecessary(motor);
 
         if (motors[motor].zeroPowerBehavior != zeroPowerBehavior) {
@@ -588,8 +597,9 @@ public final class HiTechnicNxtDcMotorController extends HiTechnicNxtController 
     private void validateApiMotorPower(double power) {
         if (apiPowerMin <= power && power <= apiPowerMax) {
             // all is well
-        } else
+        } else {
             throw new IllegalArgumentException(String.format("illegal motor power %f; must be in interval [%f,%f]", power, apiPowerMin, apiPowerMax));
+        }
     }
 
     public static DcMotor.RunMode modeFromByte(byte flag) {

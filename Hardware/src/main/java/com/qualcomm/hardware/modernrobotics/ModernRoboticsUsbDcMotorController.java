@@ -316,10 +316,11 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
         RobotLog.d("arming modern motor controller %s%s...", HardwareFactory.getDeviceDisplayName(context, this.serialNumber), (isArm ? "" : " (pretend)"));
 
         forgetLastKnown();
-        if (isArm)
+        if (isArm) {
             this.armDevice();
-        else
+        } else {
             this.pretendDevice();
+        }
 
         createSegments();
 
@@ -543,11 +544,14 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
             // so that the programmer's model is that he just needs to set the
             // mode and be done.
             for (; ; ) {
-                if (!this.isArmed()) break;
+                if (!this.isArmed()) {
+                    break;
+                }
 
                 byte bCurrentMode = (byte) (this.read8(ADDRESS_MOTOR_MODE_MAP[motor]) & CHANNEL_MODE_MASK_SELECTION);
-                if (bCurrentMode == bNewMode)
+                if (bCurrentMode == bNewMode) {
                     break;
+                }
 
                 // Modern Robotics USB DC motor controllers with firmware >= 2.0 (note: only 2.0 exists
                 // as of this writing) have a different behavior when switching to STOP_AND_RESET_ENCODER
@@ -555,8 +559,9 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
                 // Note that the manufacturer informs us that this >= 2.0 behavior is in fact the behavior
                 // on all firmware versions, but that's not consistent with our observations. For
                 // robustness, however, we allow that transition on all firmware versions.
-                if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER && bCurrentMode == bRunWithoutEncoderMode)
+                if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER && bCurrentMode == bRunWithoutEncoderMode) {
                     break;
+                }
 
                 // If we're waiting too long, then resend the mode switch. The theory is that
                 // if switches are happening too quickly then one switch might have been missed.
@@ -572,7 +577,9 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
                 // The above read8() reads from cache. To avoid flooding the system,
                 // we wait for the next read cycle before we try again: the cache
                 // isn't going to change until then.
-                if (!waitForNextReadComplete()) break;
+                if (!waitForNextReadComplete()) {
+                    break;
+                }
             }
 
             if (mode.isPIDMode() && (prevMode == null || !prevMode.isPIDMode())) {
@@ -589,8 +596,9 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
                 internalSetMotorPower(motor, power);
             } else if (mode == DcMotor.RunMode.RUN_TO_POSITION) {
                 double power = internalQueryMotorPower(motor);
-                if (power < 0)
+                if (power < 0) {
                     internalSetMotorPower(motor, Math.abs(power));
+                }
             }
 
             if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER) {
@@ -612,8 +620,12 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
                         nsResendDeadline = nsNow + nsSendInterval;
                     }
 
-                    if (!this.isArmed()) break;
-                    if (!waitForNextReadComplete()) break;
+                    if (!this.isArmed()) {
+                        break;
+                    }
+                    if (!waitForNextReadComplete()) {
+                        break;
+                    }
                 }
             }
         } finally {
@@ -684,16 +696,17 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
 
     double internalGetCachedOrQueriedMotorPower(int motor) {
         Byte bPower = motors[motor].lastKnownPowerByte.getNonTimedValue();
-        if (bPower != null)
+        if (bPower != null) {
             return internalMotorPowerFromByte(motor, bPower);
-        else
+        } else {
             return internalQueryMotorPower(motor);
+        }
     }
 
     double internalMotorPowerFromByte(int motor, byte bPower) {
-        if (bPower == bPowerFloat)
+        if (bPower == bPowerFloat) {
             return 0.0; // Float counts as zero power
-        else {
+        } else {
             double power = Range.scale(bPower, bPowerMin, bPowerMax, apiPowerMin, apiPowerMax);
             return power;
         }
@@ -731,8 +744,9 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
     @Override
     public synchronized void setMotorZeroPowerBehavior(int motor, DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
         this.validateMotor(motor);
-        if (zeroPowerBehavior == DcMotor.ZeroPowerBehavior.UNKNOWN)
+        if (zeroPowerBehavior == DcMotor.ZeroPowerBehavior.UNKNOWN) {
             throw new IllegalArgumentException("zeroPowerBehavior may not be UNKNOWN");
+        }
         finishModeSwitchIfNecessary(motor);
 
         if (motors[motor].zeroPowerBehavior != zeroPowerBehavior) {
@@ -941,7 +955,8 @@ public final class ModernRoboticsUsbDcMotorController extends ModernRoboticsUsbC
     private void validateApiMotorPower(double power) {
         if (apiPowerMin <= power && power <= apiPowerMax) {
             // all is well
-        } else
+        } else {
             throw new IllegalArgumentException(String.format("illegal motor power %f; must be in interval [%f,%f]", power, apiPowerMin, apiPowerMax));
+        }
     }
 }

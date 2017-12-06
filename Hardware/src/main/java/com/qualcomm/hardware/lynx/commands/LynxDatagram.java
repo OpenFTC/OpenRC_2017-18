@@ -315,7 +315,9 @@ public class LynxDatagram {
         buffer.order(LYNX_ENDIAN);
 
         try {
-            if (!beginsWithFraming(buffer)) throw illegalDatagram();
+            if (!beginsWithFraming(buffer)) {
+                throw illegalDatagram();
+            }
             this.packetLength = buffer.getShort();
             this.destModuleAddress = buffer.get();
             this.sourceModuleAddress = buffer.get();

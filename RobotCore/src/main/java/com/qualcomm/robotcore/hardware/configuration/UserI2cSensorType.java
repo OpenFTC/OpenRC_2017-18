@@ -163,7 +163,9 @@ public final class UserI2cSensorType extends UserConfigurationType // final beca
             Constructor ctor;
 
             ctor = findMatch(ctorI2cDeviceSynch);
-            if (null == ctor) ctor = findMatch(ctorI2cDeviceSynchSimple);
+            if (null == ctor) {
+                ctor = findMatch(ctorI2cDeviceSynchSimple);
+            }
             if (null != ctor) {
                 I2cDevice i2cDevice = new I2cDeviceImpl(controller, port);
                 I2cDeviceSynch i2cDeviceSynch = new I2cDeviceSynchImpl(i2cDevice, true);
@@ -202,8 +204,9 @@ public final class UserI2cSensorType extends UserConfigurationType // final beca
         for (Constructor<?> ctor : constructors) {
             int requiredModifiers = Modifier.PUBLIC;
             int prohibitedModifiers = Modifier.STATIC | Modifier.ABSTRACT;
-            if (!((ctor.getModifiers() & requiredModifiers) == requiredModifiers && (ctor.getModifiers() & prohibitedModifiers) == 0))
+            if (!((ctor.getModifiers() & requiredModifiers) == requiredModifiers && (ctor.getModifiers() & prohibitedModifiers) == 0)) {
                 continue;
+            }
 
             Class<?>[] parameters = ctor.getParameterTypes();
             switch (flavor) {
@@ -228,8 +231,9 @@ public final class UserI2cSensorType extends UserConfigurationType // final beca
                 }
             }
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     //----------------------------------------------------------------------------------------------

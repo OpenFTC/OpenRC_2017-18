@@ -206,8 +206,9 @@ public class FtcRobotControllerActivity extends Activity {
         if (this.eventLoop != null) {
             for (; ; ) {
                 UsbDevice usbDevice = receivedUsbAttachmentNotifications.poll();
-                if (usbDevice == null)
+                if (usbDevice == null) {
                     break;
+                }
                 this.eventLoop.onUsbDeviceAttached(usbDevice);
             }
         } else {
@@ -394,7 +395,9 @@ public class FtcRobotControllerActivity extends Activity {
         RobotLog.vv(TAG, "onDestroy()");
 
         shutdownRobot();  // Ensure the robot is put away to bed
-        if (callback != null) callback.close();
+        if (callback != null) {
+            callback.close();
+        }
 
         PreferenceRemoterRC.getInstance().start(prefRemoterStartResult);
         DeviceNameManager.getInstance().stop(deviceNameManagerStartResult);
@@ -581,7 +584,9 @@ public class FtcRobotControllerActivity extends Activity {
     }
 
     private void requestRobotSetup() {
-        if (controllerService == null) return;
+        if (controllerService == null) {
+            return;
+        }
 
         HardwareFactory factory;
         RobotConfigFile file = cfgFileMgr.getActiveConfigAndUpdateUI();
@@ -610,7 +615,9 @@ public class FtcRobotControllerActivity extends Activity {
     }
 
     private void shutdownRobot() {
-        if (controllerService != null) controllerService.shutdownRobot();
+        if (controllerService != null) {
+            controllerService.shutdownRobot();
+        }
     }
 
     private void requestRobotRestart() {

@@ -257,7 +257,8 @@ public final class HiTechnicNxtServoController extends HiTechnicNxtController im
     private void validateApiPosition(double position) {
         if (apiPositionMin <= position && position <= apiPositionMax) {
             // all is well
-        } else
+        } else {
             throw new IllegalArgumentException(String.format("illegal servo position %f; must be in interval [%f,%f]", position, apiPositionMin, apiPositionMax));
+        }
     }
 }

@@ -143,8 +143,9 @@ public abstract class ModernRoboticsUsbDevice extends ArmableUsbDevice implement
         synchronized (armingLock) {
 
             // Stop accepting new work in our executor
-            if (readWriteService != null)
+            if (readWriteService != null) {
                 readWriteService.shutdown();
+            }
 
             // Close the readWriteRunnable
             if (readWriteRunnable != null) {
@@ -252,7 +253,9 @@ public abstract class ModernRoboticsUsbDevice extends ArmableUsbDevice implement
      */
     public void write(int address, byte[] data) {
         ReadWriteRunnable r = readWriteRunnable;
-        if (r != null) r.write(address, data);
+        if (r != null) {
+            r.write(address, data);
+        }
     }
 
     /**
@@ -274,10 +277,11 @@ public abstract class ModernRoboticsUsbDevice extends ArmableUsbDevice implement
      */
     public byte[] readFromWriteCache(int address, int size) {
         ReadWriteRunnable r = readWriteRunnable;
-        if (r != null)
+        if (r != null) {
             return r.readFromWriteCache(address, size);
-        else
+        } else {
             return new byte[size];
+        }
     }
 
     /**
@@ -299,10 +303,11 @@ public abstract class ModernRoboticsUsbDevice extends ArmableUsbDevice implement
      */
     public byte[] read(int address, int size) {
         ReadWriteRunnable r = readWriteRunnable;
-        if (r != null)
+        if (r != null) {
             return r.read(address, size);
-        else
+        } else {
             return new byte[size];
+        }
     }
 
     public void startupComplete() throws InterruptedException {
