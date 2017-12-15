@@ -104,6 +104,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.util.SerialNumber;
 
 import org.firstinspires.ftc.robotcore.internal.network.WifiDirectInviteDialogMonitor;
+import org.openftc.hardware.extraRevHubFeatures.motorStuff.OpenRevDcMotorController;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
@@ -789,7 +790,7 @@ public class HardwareFactory {
             LynxModuleConfiguration lynxModuleConfiguration = (LynxModuleConfiguration) moduleConfiguration;
 
             // For each module, hook up motor controller and motors
-            LynxDcMotorController mc = new LynxDcMotorController(context, module);
+            LynxDcMotorController mc = new OpenRevDcMotorController(context, module);
             map.dcMotorController.put(moduleConfiguration.getName(), mc);
             for (MotorConfiguration motorConf : lynxModuleConfiguration.getMotors()) {
                 if (motorConf.isEnabled()) {

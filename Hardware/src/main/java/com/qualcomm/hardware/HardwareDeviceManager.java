@@ -129,6 +129,8 @@ import com.qualcomm.robotcore.util.ThreadPool;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.internal.system.Assert;
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbException;
+import org.openftc.hardware.extraRevHubFeatures.OpenRevHub;
+import org.openftc.hardware.extraRevHubFeatures.motorStuff.OpenDcMotorImpl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -407,7 +409,7 @@ public class HardwareDeviceManager implements DeviceManager {
 
     @Override
     public DcMotor createDcMotorEx(DcMotorController controller, int portNumber, @NonNull MotorConfigurationType motorType, String name) {
-        return new DcMotorImplEx(controller, portNumber, DcMotor.Direction.FORWARD, motorType);
+        return new OpenDcMotorImpl(controller, portNumber, DcMotor.Direction.FORWARD, motorType);
     }
 
 
@@ -567,7 +569,7 @@ public class HardwareDeviceManager implements DeviceManager {
     @Override
     public RobotCoreLynxModule createLynxModule(RobotCoreLynxUsbDevice lynxUsbDevice, int moduleAddress, boolean isParent, String name) {
         RobotLog.v("Creating Lynx Module - mod=%d parent=%s", moduleAddress, Boolean.toString(isParent));
-        return new LynxModule((LynxUsbDevice) lynxUsbDevice, moduleAddress, isParent);
+        return new OpenRevHub((LynxUsbDevice) lynxUsbDevice, moduleAddress, isParent);
     }
 
     /* (non-Javadoc)

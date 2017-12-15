@@ -70,6 +70,7 @@ import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbDeviceClos
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbException;
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbFTDIException;
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbUnspecifiedException;
+import org.openftc.hardware.extraRevHubFeatures.OpenRevHub;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -531,7 +532,7 @@ public class LynxUsbDeviceImpl extends ArmableUsbDevice implements LynxUsbDevice
         this.discoveredModules.clear();
 
         // Make ourselves a fake module so that we can (mostly) use the normal transmission infrastructure
-        LynxModule fakeModule = new LynxModule(this, 0/*ignored*/, false);
+        LynxModule fakeModule = new OpenRevHub(this, 0/*ignored*/, false);
         try {
             // Make a discovery command and send it out
             LynxDiscoveryCommand discoveryCommand = new LynxDiscoveryCommand(fakeModule);
