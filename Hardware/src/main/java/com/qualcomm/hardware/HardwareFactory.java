@@ -104,7 +104,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.util.SerialNumber;
 
 import org.firstinspires.ftc.robotcore.internal.network.WifiDirectInviteDialogMonitor;
-import org.openftc.hardware.extraRevHubFeatures.motorStuff.OpenRevDcMotorController;
+import org.openftc.hardware.rev.motorStuff.OpenRevDcMotorController;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;

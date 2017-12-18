@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package org.openftc.hardware.extraRevHubFeatures.motorStuff;
+package org.openftc.hardware.rev.motorStuff;
 
 import android.content.Context;
 import com.qualcomm.hardware.lynx.LynxDcMotorController;
@@ -28,8 +28,8 @@ import com.qualcomm.hardware.lynx.LynxNackException;
 import com.qualcomm.hardware.lynx.commands.core.LynxGetADCCommand;
 import com.qualcomm.hardware.lynx.commands.core.LynxGetADCResponse;
 import com.qualcomm.robotcore.exception.RobotCoreException;
-import org.openftc.hardware.extraRevHubFeatures.revHubSensor.RevCurrentSensorReading;
-import org.openftc.hardware.extraRevHubFeatures.revHubSensor.RevSensorReading;
+import org.openftc.hardware.rev.revHubSensor.RevCurrentSensorReading;
+import org.openftc.hardware.rev.revHubSensor.RevSensorReading;
 
 public class OpenRevDcMotorController extends LynxDcMotorController
 {

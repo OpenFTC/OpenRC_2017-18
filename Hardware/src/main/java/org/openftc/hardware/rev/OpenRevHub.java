@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package org.openftc.hardware.extraRevHubFeatures;
+package org.openftc.hardware.rev;
 
 import android.graphics.Color;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -29,9 +29,9 @@ import com.qualcomm.hardware.lynx.commands.core.LynxGetADCCommand;
 import com.qualcomm.hardware.lynx.commands.core.LynxGetADCResponse;
 import com.qualcomm.hardware.lynx.commands.standard.LynxSetModuleLEDColorCommand;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.openftc.hardware.extraRevHubFeatures.revHubSensor.RevCurrentSensorReading;
-import org.openftc.hardware.extraRevHubFeatures.revHubSensor.RevSensorReading;
-import org.openftc.hardware.extraRevHubFeatures.revHubSensor.RevVoltageSensorReading;
+import org.openftc.hardware.rev.revHubSensor.RevCurrentSensorReading;
+import org.openftc.hardware.rev.revHubSensor.RevSensorReading;
+import org.openftc.hardware.rev.revHubSensor.RevVoltageSensorReading;
 
 public class OpenRevHub extends LynxModule
 {

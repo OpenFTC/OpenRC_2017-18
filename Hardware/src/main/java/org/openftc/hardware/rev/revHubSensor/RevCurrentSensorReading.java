@@ -19,22 +19,22 @@
  * SOFTWARE.
  */
 
-package org.openftc.hardware.extraRevHubFeatures.revHubSensor;
+package org.openftc.hardware.rev.revHubSensor;
 
-public class RevVoltageSensorReading extends RevSensorReading
+public class RevCurrentSensorReading extends RevSensorReading
 {
-    public RevVoltageSensorReading(double doubleValue)
+    public RevCurrentSensorReading(double doubleValue)
     {
         super(doubleValue);
 
         if(doubleValue < 1000)
         {
-            formattedValue = formattedValue.concat("mv");
+            formattedValue = formattedValue.concat("ma");
         }
         else
         {
             formatForOver1k();
-            formattedValue = formattedValue.concat("v");
+            formattedValue = formattedValue.concat("a");
         }
     }
 }

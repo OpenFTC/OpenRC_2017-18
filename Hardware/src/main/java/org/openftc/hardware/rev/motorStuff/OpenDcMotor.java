@@ -19,10 +19,10 @@
  * SOFTWARE.
  */
 
-package org.openftc.hardware.extraRevHubFeatures.motorStuff;
+package org.openftc.hardware.rev.motorStuff;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import org.openftc.hardware.extraRevHubFeatures.revHubSensor.RevSensorReading;
+import org.openftc.hardware.rev.revHubSensor.RevSensorReading;
 
 public interface OpenDcMotor extends DcMotorEx
 {

@@ -19,26 +19,22 @@
  * SOFTWARE.
  */
 
-package org.openftc.hardware.extraRevHubFeatures.revHubSensor;
+package org.openftc.hardware.rev.revHubSensor;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
-public class RevSensorReading
+public class RevVoltageSensorReading extends RevSensorReading
 {
-    public double doubleValue;
-    public String formattedValue;
-
-    public RevSensorReading(double doubleValue)
+    public RevVoltageSensorReading(double doubleValue)
     {
-        this.doubleValue = doubleValue;
-        formattedValue = String.valueOf(doubleValue);
-    }
+        super(doubleValue);
 
-    protected void formatForOver1k()
-    {
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.CEILING);
-        formattedValue = df.format(doubleValue / 1000);
+        if(doubleValue < 1000)
+        {
+            formattedValue = formattedValue.concat("mv");
+        }
+        else
+        {
+            formatForOver1k();
+            formattedValue = formattedValue.concat("v");
+        }
     }
 }

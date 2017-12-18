@@ -70,7 +70,7 @@ import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbDeviceClos
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbException;
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbFTDIException;
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbUnspecifiedException;
-import org.openftc.hardware.extraRevHubFeatures.OpenRevHub;
+import org.openftc.hardware.rev.OpenRevHub;
 
 import java.util.ArrayList;
 import java.util.Collection;

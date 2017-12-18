@@ -19,13 +19,13 @@
  * SOFTWARE.
  */
 
-package org.openftc.hardware.extraRevHubFeatures.motorStuff;
+package org.openftc.hardware.rev.motorStuff;
 
 import android.support.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorImplEx;
 import com.qualcomm.robotcore.hardware.configuration.MotorConfigurationType;
-import org.openftc.hardware.extraRevHubFeatures.revHubSensor.RevSensorReading;
+import org.openftc.hardware.rev.revHubSensor.RevSensorReading;
 
 public class OpenDcMotorImpl extends DcMotorImplEx implements OpenDcMotor
 {
