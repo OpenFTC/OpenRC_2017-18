@@ -108,6 +108,39 @@ android {
     }
 }
 
+task pushVuforiaIfNecessary(type: Exec) {
+    def checkVuforiaCommand = ['adb', 'shell', 'ls', '/sdcard/FIRST/libVuforia.so']
+
+    commandLine checkVuforiaCommand
+    standardOutput = new ByteArrayOutputStream()
+
+    ext.checkOutput = {
+        return standardOutput.toString()
+    }
+
+    doLast {
+        exec {
+            workingDir '../doc/'
+
+            def pushVuforiaCommand = ['adb', 'push', 'libVuforia.so', '/sdcard/FIRST']
+
+            if(checkOutput().contains("No such file")) {
+                commandLine pushVuforiaCommand
+            } else {
+                commandLine 'echo', 'libVuforia already exists on phone'
+            }
+        }
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    // I chose this task because it is never UP-TO-DATE. We should verify that that hasn't changed,
+    // whenever we update the Android Gradle plugin.
+    if (task.name == 'validateSigningOpenftcDebug') {
+        task.dependsOn(pushVuforiaIfNecessary)
+    }
+}
+
 repositories {
     flatDir {
         dirs rootProject.file('libs')
