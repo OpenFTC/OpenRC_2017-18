@@ -108,8 +108,25 @@ android {
     }
 }
 
+
+def adbLocation = android.getAdbExecutable().absolutePath
+
+task setupFirstFolder(type: Exec) {
+    def createFirstFolderCommand = [adbLocation, 'shell', 'mkdir', '-p', '/sdcard/FIRST']
+    commandLine createFirstFolderCommand
+
+    doLast {
+        exec {
+            def mtpBroadcastCommand = [adbLocation, 'shell', 'am', 'broadcast', '-a',
+                                       'android.intent.action.MEDIA_SCANNER_SCAN_FILE',
+                                        '-d', 'file:/sdcard/FIRST']
+            commandLine mtpBroadcastCommand
+        }
+    }
+}
+
 task pushVuforiaIfNecessary(type: Exec) {
-    def adbLocation = android.getAdbExecutable().absolutePath
+    dependsOn(setupFirstFolder)
     def checkVuforiaCommand = [adbLocation, 'shell', 'ls', '/sdcard/FIRST/libVuforia.so']
 
     commandLine checkVuforiaCommand
@@ -132,7 +149,7 @@ task pushVuforiaIfNecessary(type: Exec) {
             def pushVuforiaCommand = [adbLocation, 'push', 'libVuforia.so', '/sdcard/FIRST']
             def combinedCheckOutput = "${vuforiaCheckOutput()}\n${vuforiaCheckError()}"
             if(combinedCheckOutput.contains("No such file")) {
-                println "libVuforia.so not found on phone. Pushing."
+                println "libVuforia.so not found on phone. Pushing!"
                 commandLine pushVuforiaCommand
             } else if(vuforiaCheckExitedCleanly) {
                 commandLine 'echo', 'Skipping, libVuforia already exists.'
