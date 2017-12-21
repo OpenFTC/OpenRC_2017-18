@@ -114,21 +114,25 @@ task pushVuforiaIfNecessary(type: Exec) {
 
     commandLine checkVuforiaCommand
     standardOutput = new ByteArrayOutputStream()
+    ignoreExitValue = true
 
-    ext.checkOutput = {
+    ext.vuforiaCheckOutput = {
         return standardOutput.toString()
     }
 
     doLast {
+        def vuforiaCheckExitedCleanly = (execResult.exitValue == 0)
         exec {
             workingDir '../doc/'
 
             def pushVuforiaCommand = [adbLocation, 'push', 'libVuforia.so', '/sdcard/FIRST']
 
-            if(checkOutput().contains("No such file")) {
+            if(vuforiaCheckOutput().contains("No such file")) {
                 commandLine pushVuforiaCommand
+            } else if(vuforiaCheckExitedCleanly) {
+                commandLine 'echo', 'Skipping, libVuforia already exists'
             } else {
-                commandLine 'echo', 'libVuforia already exists on phone'
+                commandLine 'echo', 'Failed to connect to phone'
             }
         }
     }
