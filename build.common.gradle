@@ -127,6 +127,8 @@ task pushVuforiaIfNecessary(type: Exec) {
 
             def pushVuforiaCommand = [adbLocation, 'push', 'libVuforia.so', '/sdcard/FIRST']
 
+            println "Output of vuforia check: ${vuforiaCheckOutput()}"
+
             if(vuforiaCheckOutput().contains("No such file")) {
                 println "libVuforia.so not found on phone. Pushing."
                 commandLine pushVuforiaCommand
