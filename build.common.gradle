@@ -109,7 +109,8 @@ android {
 }
 
 task pushVuforiaIfNecessary(type: Exec) {
-    def checkVuforiaCommand = ['adb', 'shell', 'ls', '/sdcard/FIRST/libVuforia.so']
+    def adbLocation = android.getAdbExecutable().absolutePath
+    def checkVuforiaCommand = [adbLocation, 'shell', 'ls', '/sdcard/FIRST/libVuforia.so']
 
     commandLine checkVuforiaCommand
     standardOutput = new ByteArrayOutputStream()
@@ -122,7 +123,7 @@ task pushVuforiaIfNecessary(type: Exec) {
         exec {
             workingDir '../doc/'
 
-            def pushVuforiaCommand = ['adb', 'push', 'libVuforia.so', '/sdcard/FIRST']
+            def pushVuforiaCommand = [adbLocation, 'push', 'libVuforia.so', '/sdcard/FIRST']
 
             if(checkOutput().contains("No such file")) {
                 commandLine pushVuforiaCommand
