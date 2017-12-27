@@ -86,7 +86,7 @@ import org.openftc.UiUtils;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetAddress;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -238,20 +238,12 @@ public class AboutActivity extends ThemedActivity {
 
   /** https://code.google.com/p/android/issues/detail?id=220039 */
   protected String getBuildTime() {
-
     String buildTime = "unavailable";
     try {
-      ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), 0);
-
-      ZipFile zf = new ZipFile(ai.sourceDir);
-      ZipEntry ze = zf.getEntry("classes.dex");
-      zf.close();
-
-      long time = ze.getTime();
-      buildTime = SimpleDateFormat.getInstance().format(new java.util.Date(time));
+      long time = AboutActivity.this.getPackageManager().getPackageInfo(AboutActivity.this.getPackageName(), 0).lastUpdateTime;
+      Date date = new Date(time);
+      buildTime = date.toString();
     } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
       e.printStackTrace();
     }
     return buildTime;
