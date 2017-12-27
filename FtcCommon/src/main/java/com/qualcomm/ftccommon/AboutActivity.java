@@ -237,6 +237,7 @@ public class AboutActivity extends ThemedActivity {
   }
 
   /** https://code.google.com/p/android/issues/detail?id=220039 */
+  //Modified for OpenFTC
   protected String getBuildTime() {
     String buildTime = "unavailable";
     try {
