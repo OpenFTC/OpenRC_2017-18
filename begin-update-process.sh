@@ -21,7 +21,8 @@ extract_aar () {
 	mv assets ../$1/src/main
 	
 	# Currently untested
-	mv -f jni/* ../libs/armeabi-v7a
+	rm -rf ../$1/src/main/jniLibs
+	mv jni/* ../$1/src/main/jniLibs
 	
 	rm -rf ../$1/libs
 	mv libs ../$1/
