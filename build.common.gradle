@@ -45,7 +45,7 @@ android {
             storeFile rootProject.file('libs/ftc.debug.keystore')
             storePassword 'android'
         }
-    }t
+    }
 
     buildTypes.each {
         it.buildConfigField 'String', 'VUFORIA_KEY', vuforiaKey
