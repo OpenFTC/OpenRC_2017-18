@@ -7,7 +7,6 @@ pause () {
 extract_source () {
 	rm -rf $1/src/main/java/*
 	unzip -q libs/$1-release-sources.jar -x "META-INF/*" -d $1/src/main/java/
-	git rm libs/$1-release-sources.jar
 }
 
 extract_aar () {
@@ -32,7 +31,6 @@ extract_aar () {
 	
 	cd ..
 	rm -rf $1-tmp
-	git rm libs/$1-release.aar
 }
 
 extract () {
