@@ -61,6 +61,10 @@ extract Inspection
 
 extract RobotCore
 
+# Currently untested
+cp -f libs/armeabi-v7a/libVuforia.so doc/
+mv -f libs/armeabi-v7a/libVuforia.so FtcRobotController/src/stock/jniLibs/armeabi-v7a/
+
 git rm doc/apk/FtcRobotController-release.apk
 
 echo "==============================================================================="
