@@ -19,6 +19,21 @@ import java.util.regex.Pattern
 
 apply plugin: 'com.android.application'
 
+// This variable can be accessed from within TeamCode classes by using BuildConfig.VUFORIA_KEY
+String vuforiaKey
+
+try {
+    def vuforiaPropertiesFileStream = new FileInputStream(rootProject.file("TeamCode/vuforia.properties"))
+    def vuforiaProperties = new Properties()
+    vuforiaProperties.load(vuforiaPropertiesFileStream)
+    vuforiaKey = vuforiaProperties['VUFORIA_KEY']
+} catch (FileNotFoundException) {
+} finally {
+    if (vuforiaKey == null) {
+        vuforiaKey = '""'
+    }
+}
+
 android {
 
     compileSdkVersion 23
@@ -30,6 +45,10 @@ android {
             storeFile rootProject.file('libs/ftc.debug.keystore')
             storePassword 'android'
         }
+    }t
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'VUFORIA_KEY', vuforiaKey
     }
 
     defaultConfig {
