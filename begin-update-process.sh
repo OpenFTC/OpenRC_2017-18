@@ -1,16 +1,8 @@
 #!/bin/bash
-echo "If you are running this from Windows (WSL), make sure to turn on Auto CRLF:"
-echo "git config --global core.autocrlf true"
-echo
-echo "This script expects a remote to be set up called \"first\""
 
 pause () {
 	read -p "Press Enter to continue"
 }
-
-pause
-
-git pull first beta
 
 extract_source () {
 	rm -rf $1/src/main/java/*
@@ -48,6 +40,18 @@ extract () {
 	extract_aar $1
 	git add $1/*
 }
+
+echo "If you are running this from Windows (WSL), make sure to turn on Auto CRLF:"
+echo "git config --global core.autocrlf true"
+echo
+echo "This script expects a remote to be set up called \"first\""
+
+pause
+
+# Switch to script location
+cd "${0%/*}" # https://stackoverflow.com/a/16349776/4651874
+
+git pull first beta
 
 extract Blocks
 
