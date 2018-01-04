@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.internal;
+package org.openftc.robotcontroller;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.cyanogenmod.updater.utils.MD5;
 
+import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
 import org.openftc.exceptions.VuforiaCorruptedException;
 import org.openftc.exceptions.VuforiaNotFoundException;
 
