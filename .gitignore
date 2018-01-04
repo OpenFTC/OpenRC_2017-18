@@ -27,3 +27,4 @@ build/
 !.idea/codeStyleSettings.xml
 !/doc/apk/FtcDriverStation-release.apk
 /logs/
+vuforia.properties
