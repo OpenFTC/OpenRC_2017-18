@@ -23,11 +23,12 @@ apply plugin: 'com.android.application'
 String vuforiaKey
 
 try {
-    def vuforiaPropertiesFileStream = new FileInputStream(rootProject.file("TeamCode/vuforia.properties"))
+    def vuforiaPropertiesFileStream = new FileInputStream(file('./vuforia.properties').absolutePath)
     def vuforiaProperties = new Properties()
     vuforiaProperties.load(vuforiaPropertiesFileStream)
     vuforiaKey = vuforiaProperties['VUFORIA_KEY']
 } catch (FileNotFoundException) {
+    println "vuforia.properties not found"
 } finally {
     if (vuforiaKey == null) {
         vuforiaKey = '""'
