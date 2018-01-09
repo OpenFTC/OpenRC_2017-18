@@ -17,10 +17,6 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
-/**
- * @author Ryan
- */
-
 @SupportedAnnotationTypes({"com.qualcomm.robotcore.eventloop.opmode.TeleOp", "com.qualcomm.robotcore.eventloop.opmode.Autonomous"})
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class DuplicateOpModeProcessor extends AbstractProcessor {
