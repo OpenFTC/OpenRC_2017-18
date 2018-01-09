@@ -3,6 +3,7 @@ def adbLocation = android.getAdbExecutable().absolutePath
 task setupFirstFolder(type: Exec) {
     def createFirstFolderCommand = [adbLocation, 'shell', 'mkdir', '-p', '/sdcard/FIRST']
     commandLine createFirstFolderCommand
+    ignoreExitValue = true
 
     doLast {
         exec {
@@ -10,6 +11,7 @@ task setupFirstFolder(type: Exec) {
                                        'android.intent.action.MEDIA_SCANNER_SCAN_FILE',
                                        '-d', 'file:/sdcard/FIRST']
             commandLine mtpBroadcastCommand
+            ignoreExitValue = true
         }
     }
 }
