@@ -5,6 +5,9 @@ task setupFirstFolder(type: Exec) {
     commandLine createFirstFolderCommand
     ignoreExitValue = true
 
+    standardOutput = new ByteArrayOutputStream()
+    errorOutput = new ByteArrayOutputStream()
+
     doLast {
         exec {
             def mtpBroadcastCommand = [adbLocation, 'shell', 'am', 'broadcast', '-a',
@@ -12,6 +15,9 @@ task setupFirstFolder(type: Exec) {
                                        '-d', 'file:/sdcard/FIRST']
             commandLine mtpBroadcastCommand
             ignoreExitValue = true
+
+            standardOutput = new ByteArrayOutputStream()
+            errorOutput = new ByteArrayOutputStream()
         }
     }
 }
