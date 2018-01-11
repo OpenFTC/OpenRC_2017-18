@@ -11,4 +11,7 @@ dependencies {
     openftcImplementation project(':RobotCore')
     openftcImplementation project(':Hardware')
     openftcImplementation project(':FtcCommon')
+
+    implementation project(':OpenFTCAnnotations')
+    annotationProcessor project(':OpenFTCCompiler')
 }

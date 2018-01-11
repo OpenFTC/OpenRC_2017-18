@@ -16,4 +16,6 @@ dependencies {
     stockImplementation(name: 'RobotCore-release', ext: 'aar')
     stockImplementation(name: 'Hardware-release', ext: 'aar')
     stockImplementation(name: 'FtcCommon-release', ext: 'aar')
+
+    implementation project(':OpenFTCAnnotations')
 }
