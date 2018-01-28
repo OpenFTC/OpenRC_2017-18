@@ -1,3 +1,5 @@
+import org.openftc.ftcplugin.SetupFtcResourcesPlugin
+
 def adbLocation = android.getAdbExecutable().absolutePath
 
 task setupFirstFolder(type: Exec) {
@@ -22,50 +24,70 @@ task setupFirstFolder(type: Exec) {
     }
 }
 
-task pushVuforiaIfNecessary(type: Exec) {
-    dependsOn(setupFirstFolder)
-    def checkVuforiaCommand = [adbLocation, 'shell', 'ls', '/sdcard/FIRST/libVuforia.so']
+apply plugin: SetupFtcResourcesPlugin
 
-    commandLine checkVuforiaCommand
-    standardOutput = new ByteArrayOutputStream()
-    errorOutput = new ByteArrayOutputStream()
-    ignoreExitValue = true
+// TODO: We need to set up all directories that we will copy files to
 
-    ext.vuforiaCheckOutput = {
-        return standardOutput.toString()
-    }
-    ext.vuforiaCheckError = {
-        return errorOutput.toString()
-    }
+// TODO: This needs to do some type of check beyond whether or not the file exists. Especially if we use this beyond Vuforia.
 
-    doLast {
-        def vuforiaCheckExitedCleanly = (execResult.exitValue == 0)
-        exec {
-            def shellCommandStart = []
+/*
 
-            if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-                shellCommandStart = ['cmd', '/c']
-            }
+// https://stackoverflow.com/questions/42879019/groovy-class-not-available-in-gradle
+// https://docs.gradle.org/current/userguide/organizing_build_logic.html#sec:build_sources
+// https://stackoverflow.com/questions/21905608/using-groovy-classes-within-gradle-build
+def filesToCopy = [
+        // Locations must end in slashes
+        new ExternalResource(filename:'libVuforia.so', srcLocation:'doc/', dstLocation:'libs/'),
+        new ExternalResource(filename:'openrc.txt')
+]
 
-            workingDir '../doc/'
 
-            def pushVuforiaCommand = [adbLocation, 'push', 'libVuforia.so', '/sdcard/FIRST']
-            def combinedCheckOutput = "${vuforiaCheckOutput()}\n${vuforiaCheckError()}"
-            if(combinedCheckOutput.contains("No such file")) {
-                println "libVuforia.so not found on phone. Pushing!"
-                commandLine pushVuforiaCommand
-            } else if(vuforiaCheckExitedCleanly) {
-                commandLine = shellCommandStart + ['echo', 'Skipping, libVuforia already exists.']
-            } else if(combinedCheckOutput.contains("no devices")) {
-                commandLine = shellCommandStart + ['echo', 'Skipping, no device to push to.']
-            } else if(combinedCheckOutput.contains("more than one")) {
-                commandLine = shellCommandStart + ['echo', 'Multiple Android devices found.']
-                logger.warn('\nUnable to check for libVuforia.so when multiple devices are connected.')
-                logger.warn('If any connected devices do not have libVuforia.so already, they will display an error when the app starts.')
-                logger.warn('If this occurs, you can simply deploy the app from Android Studio with only a single device connected.\n')
-            } else {
-                println combinedCheckOutput
-                commandLine = shellCommandStart + ['echo', 'Failed to connect to phone.']
+filesToCopy.each { ExternalResource file ->
+    task "push${file.filename}IfNecessary"(type: Exec) {
+        dependsOn(setupFirstFolder)
+        def checkFileCommand = [adbLocation, 'shell', 'ls', "/sdcard/FIRST/${file.dstLocation}${file.filename}"]
+
+        commandLine checkFileCommand
+        standardOutput = new ByteArrayOutputStream()
+        errorOutput = new ByteArrayOutputStream()
+        ignoreExitValue = true
+
+        ext.fileCheckOutput = {
+            return standardOutput.toString()
+        }
+        ext.fileCheckError = {
+            return errorOutput.toString()
+        }
+
+        doLast {
+            def fileCheckExitedCleanly = (execResult.exitValue == 0)
+            exec {
+                def shellCommandStart = []
+
+                if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+                    shellCommandStart = ['cmd', '/c']
+                }
+
+                workingDir '..'
+
+                def pushFileCommand = [adbLocation, 'push', "${file.srcLocation}${file.filename}", "/sdcard/FIRST/${file.dstLocation}"]
+                def combinedCheckOutput = "${fileCheckOutput()}\n${fileCheckError()}"
+                if(combinedCheckOutput.contains("No such file")) {
+                    println "${file.filename} not found on phone. Pushing!"
+                    commandLine pushFileCommand
+                } else if(fileCheckExitedCleanly) {
+                    commandLine = shellCommandStart + ['echo', "Skipping, ${file.filename} already exists."]
+                } else if(combinedCheckOutput.contains("no devices")) {
+                    commandLine = shellCommandStart + ['echo', 'Skipping, no device to push to.']
+                } else if(combinedCheckOutput.contains("more than one")) {
+                    commandLine = shellCommandStart + ['echo', 'Multiple Android devices found.']
+                    logger.warn("\nUnable to check for ${file.filename} when multiple devices are connected.")
+                    logger.warn("If any connected devices do not have ${file.filename} already, they will display an error when the app starts.")
+                    logger.warn('If this occurs, you can simply deploy the app from Android Studio with only a single device connected.\n')
+                } else {
+                    println combinedCheckOutput
+                    commandLine = shellCommandStart + ['echo', 'Failed to connect to phone.']
+                }
             }
         }
     }
@@ -75,6 +97,8 @@ tasks.whenTaskAdded { task ->
     // I chose this task because it is never shown as "UP-TO-DATE" when you run Gradle without changing anything.
     // We should verify that that hasn't changed whenever we update the Android Gradle plugin.
     if (task.name == 'validateSigningOpenrcDebug') {
-        task.dependsOn(pushVuforiaIfNecessary)
+        filesToCopy.each { file ->
+            task.dependsOn("push${file.filename}IfNecessary")
+        }
     }
-}
+}*/
