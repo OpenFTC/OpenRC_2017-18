@@ -14,10 +14,15 @@ public class SetupFtcResourcesPlugin implements Plugin<Project> {
     public void apply(Project project) {
         setupBridge(project)
 
+        // For consistency's sake, all directories should have trailing slashes.
 
         ExternalResourcesExtension externalResourcesExtension
         project.extensions.create("externalResources", ExternalResourcesExtension)
         Task copyIfNecessaryTask = project.task("CINtest", type: CopyIfNecessaryTask)
+
+        // TODO: Test when these aren't set
+        copyIfNecessaryTask.localSourcePath = '../openrc.txt'
+//        copyIfNecessaryTask.remoteDestinationPath = 'libs/'
 
 
 //        project.getExtensions().getByName("android")

@@ -6,53 +6,65 @@ import org.gradle.api.tasks.TaskAction
 
 import com.android.ddmlib.*
 
+import java.security.InvalidParameterException
 import java.util.function.Consumer
 
-// TODO: Ensure that the folder exists, and check the filesizes.
+// TODO: Test updated file (new filesize)
+// TODO: Test with nonexistent FIRST folder
 
 /**
  * For every connected device, this task will check to see if the file already exists, and will copy it if it's not there.
  */
 class CopyIfNecessaryTask extends DefaultTask {
-    def resourcePath
-
-    ExternalResource externalResource
+    def localSourcePath
+    String remoteDestinationPath = ''
 
     private AndroidDebugBridge bridge
-    private IDevice[] devices
+    private WrappedDevice[] devices
 
     @TaskAction
     void runTask() throws InterruptedException{
+
+        if(getLocalSourceFile().isDirectory()) {
+            throw new InvalidParameterException("Copying an entire directory is not supported at this time.")
+        }
+
+        if(!remoteDestinationPath.endsWith('/') && remoteDestinationPath.length() != 0) {
+            throw new InvalidParameterException("Remote destination path must be blank or end with a slash (/).")
+        }
+
+        if(remoteDestinationPath.startsWith('/')) {
+            throw new InvalidParameterException("Remote destination path must not begin with a slash.")
+        }
+
+
         bridge = SetupFtcResourcesPlugin.bridge
         try {
             waitForAdb()
 
-            devices = bridge.getDevices()
+            devices = WrappedDevice.wrapDevices(bridge.getDevices())
 
-            logDevices()
+            getLogger().info("\n${devices.length} device(s) found:\n")
+            runOnAllDevices({device ->
+                logDevice(device)
+            })
 
-            setupFirstFolder();
 
-            if(resourceNeedsSending()) {
-                sendResource()
-            }
+            runOnAllDevices({ device ->
+                if(resourceNeedsSending(device)) {
+                    logger.info("${device.getName()}: Sending resouce")
+                    sendResource(device)
+                } else {
+                    logger.info("${device.getName()}: Skipping resouce")
+                }
+            })
 
         } catch (TimeoutException e) {
             getLogger().warn(e.getMessage())
         }
     }
 
-    private void logDevices() {
-        getLogger().info("\n${devices.length} device(s) found:\n")
-        for(IDevice device: devices) {
-            getLogger().info(device.getProperty(IDevice.PROP_DEVICE_MODEL))
-            getLogger().info("-----------------------------")
-            getLogger().info("EXTERNAL_STORAGE: ${getExternalStorageDirectory(device)}")
-            getLogger().info('')
-        }
-    }
-
-    // We shouldn't be waiting long at all here, since we started the (asynchronous) process during the configuration phase.
+    // We shouldn't be waiting long at all here, since we started the process during the configuration phase.
     private void waitForAdb() throws InterruptedException, TimeoutException {
         long timeOut = 10000 // 10 sec
         int sleepTime = 500
@@ -66,41 +78,84 @@ class CopyIfNecessaryTask extends DefaultTask {
         }
     }
 
-    private void setupFirstFolder() {
-        runOnAllDevices({ device ->
-            FileListingService lister = device.getFileListingService()
-            getExternalStorageDirectory(device)
-            // TODO: finish this
-
-            // I like the idea of using FileListingService. The problem with it is that we'd have to parse the external
-            // storage link ourselves. Better to use something that lets us pass it in directly, especially if it also
-            // does checks to make sure the path is good.
-
-            // I take that back. I'd rather do a simple parse of a path than try to find a hacky way to check for a file.
-            // There's even a StackOverflow post with code:
-            // https://stackoverflow.com/questions/36963532/using-java-how-do-i-get-get-ddmlib-fileentry-objects-for-something-in-the-sdcar
-        })
+    protected void logDevice(WrappedDevice device) {
+        getLogger().info(device.getName())
+        getLogger().info("-----------------------------")
+        getLogger().info("EXTERNAL_STORAGE: ${device.getExternalStorageDirectory()}")
+        getLogger().info('')
     }
 
-    private void sendResource() {
+    protected boolean resourceNeedsSending(WrappedDevice device) {
+        FileListingService listingService = device.getFileListingService()
+        FileListingService.FileEntry result = listingService.root
+        // We have verified that all of these values end with a slash.
+        String fileToCheck = getCompleteRemotePath(device)
 
+        String[] pathSegments = fileToCheck.split('/')
+
+        for (String segment: pathSegments) {
+            if(segment.length() == 0) {
+                continue
+            }
+            listingService.getChildren(result, false, null)
+            result = result.findChild(segment)
+            if(result == null) {
+                return true
+            }
+        }
+
+        if(result.sizeValue == getLocalSourceFile().size()) {
+            return false
+        } else {
+            return true
+        }
     }
 
-    private boolean resourceNeedsSending() {
-        return false
+    protected String getCompleteRemotePath(WrappedDevice device) {
+        return device.getFirstDirectory() + remoteDestinationPath + getLocalSourceFile().name
     }
 
-    private File getResourcePath() {
-        project.file(resourcePath, PathValidation.FILE)
+    protected void sendResource(WrappedDevice device) {
+        device.pushFile(getLocalSourceFile().toString(), getCompleteRemotePath(device))
     }
 
-    private static String getExternalStorageDirectory(IDevice device) {
-        return device.getMountPoint(device.MNT_EXTERNAL_STORAGE)
+    protected File getLocalSourceFile() {
+        project.file(localSourcePath, PathValidation.FILE)
     }
 
-    private void runOnAllDevices(Consumer<IDevice> task) {
-        for (IDevice device: devices) {
-            task.accept(device);
+    private void runOnAllDevices(Consumer<WrappedDevice> task) {
+        for (WrappedDevice device: devices) {
+            task.accept(device)
+        }
+    }
+
+    // TODO: reorganize methods
+
+    private class SyncProgressMonitor implements SyncService.ISyncProgressMonitor {
+
+        @Override
+        void start(int totalWork) {
+
+        }
+
+        @Override
+        void stop() {
+
+        }
+
+        @Override
+        boolean isCanceled() {
+            return false
+        }
+
+        @Override
+        void startSubTask(String name) {
+
+        }
+
+        @Override
+        void advance(int work) {
+
         }
     }
 }
