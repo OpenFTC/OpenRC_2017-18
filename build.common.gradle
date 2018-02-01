@@ -17,7 +17,10 @@
 
 import java.util.regex.Pattern
 
+
 apply plugin: 'com.android.application'
+
+apply plugin: "org.openftc.ftc-resources-plugin"
 
 // This variable can be accessed from within TeamCode classes by using BuildConfig.VUFORIA_KEY
 String vuforiaKey

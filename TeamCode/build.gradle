@@ -9,6 +9,15 @@
 // before doing so.
 
 // Custom definitions may go here
-
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.org.openftc.ftcresourcesplugin:ftcExternalResources:0.9"
+    }
+}
 // Include common definitions from above.
 apply from: '../build.common.gradle'

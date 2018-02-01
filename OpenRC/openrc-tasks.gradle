@@ -1,6 +1,4 @@
-import org.openftc.ftcplugin.ExternalFtcResourcesPlugin
 
-apply plugin: ExternalFtcResourcesPlugin
 
 externalResources {
 
