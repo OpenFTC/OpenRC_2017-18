@@ -24,7 +24,7 @@ import java.util.function.Consumer;
  */
 public class CopyIfNecessary extends DefaultTask {
     private final Property<String> localSourcePath;
-    private final Property<String> remoteDestinationPath; // TODO: set default value of "" somehow
+    private final Property<String> remoteDestinationPath;
     private AndroidDebugBridge bridge;
     private WrappedDevice[] devices;
 
@@ -142,14 +142,8 @@ public class CopyIfNecessary extends DefaultTask {
     private void sendResource(WrappedDevice device) {
         try {
             device.pushFile(getLocalSourceFile().toString(), getCompleteRemotePath(device));
-        } catch (IOException e1) { // TODO: Handle these
-            e1.printStackTrace();
-        } catch (AdbCommandRejectedException e1) {
-            e1.printStackTrace();
-        } catch (TimeoutException e1) {
-            e1.printStackTrace();
-        } catch (SyncException e1) {
-            e1.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -171,6 +165,4 @@ public class CopyIfNecessary extends DefaultTask {
     public Property<String> getRemoteDestinationPath() {
         return remoteDestinationPath;
     }
-
-    // TODO: reorganize methods
 }
