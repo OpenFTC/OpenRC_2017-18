@@ -9,6 +9,9 @@ import org.gradle.api.Project;
 import org.jetbrains.annotations.NotNull;
 
 public class ExternalFtcResourcesPlugin implements Plugin<Project> {
+
+    // For consistency's sake, all directories should have trailing slashes.
+
     @Override
     public void apply(@NotNull Project project) {
         setupBridge(project);
@@ -31,25 +34,6 @@ public class ExternalFtcResourcesPlugin implements Plugin<Project> {
                 copyTask.getRemoteDestinationPath().set(resource.getRemoteSubfolder());
             });
         });
-
-        // For consistency's sake, all directories should have trailing slashes.
-//
-//        ExternalFtcResourcesExtension resourcesExtension;
-//        resourcesExtension = project.getExtensions().create("externalResources", ExternalFtcResourcesExtension.class, project);
-
-
-//
-//        project.getTasks().create("CINtest", CopyIfNecessary.class, copyIfNecessaryTask -> {
-////                copyIfNecessaryTask.getFileToSend().set(resourcesExtension.);
-//        });
-
-        // TODO: Test when these aren't set
-//        copyIfNecessaryTask.setProperty("localSourcePath", "../openrc.txt");
-//        copyIfNecessaryTask.remoteDestinationPath = 'libs/'
-
-
-//        project.getExtensions().getByName("android")
-//        project.plugins.findPlugin('android').getSdkParser()
     }
 
     private static void setupBridge(Project project) {

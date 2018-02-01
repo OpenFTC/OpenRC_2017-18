@@ -6,7 +6,6 @@ import com.android.ddmlib.FileListingService;
 import com.android.ddmlib.SyncException;
 import com.android.ddmlib.TimeoutException;
 
-import org.codehaus.groovy.runtime.ResourceGroovyMethods;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.PathValidation;
 import org.gradle.api.provider.Property;
@@ -15,13 +14,10 @@ import org.gradle.api.tasks.TaskAction;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.function.Consumer;
-
-// TODO: Test updated file (new filesize)
-// TODO: Test with nonexistent FIRST folder
-
-// TODO: Investigate sending based on modification date
-// TODO: Investigate doing a checksum locally on the remote device
 
 /**
  * For every connected device, this task will check to see if the file already exists, and will copy it if it's not there.
@@ -119,17 +115,24 @@ public class CopyIfNecessary extends DefaultTask {
             listingService.getChildren(result, false, null);
             result = result.findChild(segment);
             if (result == null) {
-                return true;
+                return true; // Send the file if it doesn't exist
             }
-
         }
 
-        if (result.getSizeValue() == ResourceGroovyMethods.size(getLocalSourceFile())) {
-            return false;
-        } else {
-            return true;
+        if (result.getSizeValue() != getLocalSourceFile().length()) {
+            return true; // Send the file if the sizes don't match
         }
 
+        // If the phone's time is set sufficiently far back, this will cause the file to be pushed every single
+        // time. If the computer's time is set sufficiently far back, the file may never get pushed unless the
+        // filesizes don't match (which should be pretty rare when a push is warranted anyway).
+        LocalDateTime remoteFileTime = LocalDateTime.parse(result.getDate() + "T" + result.getTime());
+        LocalDateTime localFileTime = Instant.ofEpochMilli(getLocalSourceFile().lastModified())
+                .atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        return localFileTime.isAfter(remoteFileTime);
+
+        //It would be nice to do a checksum here, but you can't run md5sum from the ZTE Speed shell.
     }
 
     private String getCompleteRemotePath(WrappedDevice device) {

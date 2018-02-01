@@ -8,7 +8,7 @@ externalResources {
         // This is relative to the TeamCode folder
         fileToSend = '../openrc.txt'
         // This is relative to the FIRST folder
-        remoteSubfolder = 'newfolder'
+        remoteSubfolder = 'newfolder/'
     }
 
     vuforia {
