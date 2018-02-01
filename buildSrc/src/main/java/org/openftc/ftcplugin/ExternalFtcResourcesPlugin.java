@@ -8,6 +8,10 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.jetbrains.annotations.NotNull;
 
+// TODO: Run the tasks automatically
+// TODO: Clean up openrc-tasks
+// TODO: Move this to its own repo, replace with jar
+
 public class ExternalFtcResourcesPlugin implements Plugin<Project> {
 
     // For consistency's sake, all directories should have trailing slashes.
