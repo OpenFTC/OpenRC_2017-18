@@ -20,14 +20,22 @@ import java.util.function.Consumer;
 // TODO: Test updated file (new filesize)
 // TODO: Test with nonexistent FIRST folder
 
+// TODO: Investigate sending based on modification date
+// TODO: Investigate doing a checksum locally on the remote device
+
 /**
  * For every connected device, this task will check to see if the file already exists, and will copy it if it's not there.
  */
-public class CopyIfNecessaryTask extends DefaultTask {
-    private Property<String> localSourcePath;
-    private Property<String> remoteDestinationPath; // TODO: set default value of "" somehow
+public class CopyIfNecessary extends DefaultTask {
+    private final Property<String> localSourcePath;
+    private final Property<String> remoteDestinationPath; // TODO: set default value of "" somehow
     private AndroidDebugBridge bridge;
     private WrappedDevice[] devices;
+
+    public CopyIfNecessary() {
+        localSourcePath = getProject().getObjects().property(String.class);
+        remoteDestinationPath = getProject().getObjects().property(String.class);
+    }
 
     @TaskAction
     public void runTask() throws InterruptedException {
@@ -38,12 +46,12 @@ public class CopyIfNecessaryTask extends DefaultTask {
 
 
         if (!remoteDestinationPath.get().endsWith("/") && remoteDestinationPath.get().length() != 0) {
-            throw new InvalidParameterException("Remote destination path must be blank or end with a slash (/).");
+            throw new InvalidParameterException("Remote subfolder must be blank or end with a slash (/).");
         }
 
 
         if (remoteDestinationPath.get().startsWith("/")) {
-            throw new InvalidParameterException("Remote destination path must not begin with a slash.");
+            throw new InvalidParameterException("Remote subfolder must not begin with a slash.");
         }
 
 
@@ -59,10 +67,10 @@ public class CopyIfNecessaryTask extends DefaultTask {
 
             runOnAllDevices(device -> {
                 if (resourceNeedsSending(device)) {
-                    getLogger().info(device.getName() + ": Sending resource");
+                    getLogger().warn(device.getName() + ": Sending resource");
                     sendResource(device);
                 } else {
-                    getLogger().info(device.getName() + ": Skipping resource");
+                    getLogger().warn(device.getName() + ": Skipping resource");
                 }
             });
 
@@ -125,7 +133,7 @@ public class CopyIfNecessaryTask extends DefaultTask {
     }
 
     private String getCompleteRemotePath(WrappedDevice device) {
-        return device.getFirstDirectory() + remoteDestinationPath + getLocalSourceFile().getName();
+        return device.getFirstDirectory() + remoteDestinationPath.get() + getLocalSourceFile().getName();
     }
 
     private void sendResource(WrappedDevice device) {
@@ -143,7 +151,7 @@ public class CopyIfNecessaryTask extends DefaultTask {
     }
 
     private File getLocalSourceFile() {
-        return getProject().file(localSourcePath, PathValidation.FILE);
+        return getProject().file(localSourcePath.get(), PathValidation.FILE);
     }
 
     private void runOnAllDevices(Consumer<WrappedDevice> task) {
@@ -151,6 +159,14 @@ public class CopyIfNecessaryTask extends DefaultTask {
             task.accept(device);
         }
 
+    }
+
+    public Property<String> getLocalSourcePath() {
+        return localSourcePath;
+    }
+
+    public Property<String> getRemoteDestinationPath() {
+        return remoteDestinationPath;
     }
 
     // TODO: reorganize methods
