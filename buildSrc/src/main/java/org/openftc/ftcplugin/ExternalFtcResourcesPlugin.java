@@ -7,15 +7,15 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.jetbrains.annotations.NotNull;
 
-public class SetupFtcResourcesPlugin implements Plugin<Project> {
+public class ExternalFtcResourcesPlugin implements Plugin<Project> {
     @Override
     public void apply(@NotNull Project project) {
         setupBridge(project);
 
         // For consistency's sake, all directories should have trailing slashes.
 
-        ExternalResourcesExtension externalResourcesExtension;
-        project.getExtensions().create("externalResources", ExternalResourcesExtension.class);
+        ExternalFtcResourcesExtension externalFtcResourcesExtension;
+        project.getExtensions().create("externalResources", ExternalFtcResourcesExtension.class);
         project.getTasks().create("CINtest", CopyIfNecessaryTask.class, copyIfNecessaryTask -> {
 //                copyIfNecessaryTask.
         });

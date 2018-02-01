@@ -47,7 +47,7 @@ public class CopyIfNecessaryTask extends DefaultTask {
         }
 
 
-        bridge = SetupFtcResourcesPlugin.getBridge();
+        bridge = ExternalFtcResourcesPlugin.getBridge();
         try {
             waitForAdb();
 
