@@ -1,5 +1,4 @@
-package org.openftc.ftcplugin
+package org.openftc.ftcplugin;
 
 public class ExternalResourcesExtension {
-
 }
