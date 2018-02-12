@@ -3,8 +3,7 @@
 package com.google.blocks.ftcrobotcontroller.runtime;
 
 import android.webkit.JavascriptInterface;
-import com.qualcomm.robotcore.util.RobotLog;
-import java.util.Locale;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.Axis;
@@ -16,172 +15,132 @@ import org.firstinspires.ftc.robotcore.external.navigation.Axis;
  */
 class AngularVelocityAccess extends Access {
 
-  AngularVelocityAccess(BlocksOpMode blocksOpMode, String identifier) {
-    super(blocksOpMode, identifier);
-  }
+    AngularVelocityAccess(BlocksOpMode blocksOpMode, String identifier) {
+        super(blocksOpMode, identifier, "AngularVelocity");
+    }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, fieldName = "unit")
-  public String getAngleUnit(Object angularVelocity) {
-    checkIfStopRequested();
-    try {
-      if (angularVelocity instanceof AngularVelocity) {
-        AngleUnit angleUnit = ((AngularVelocity) angularVelocity).unit;
+    private AngularVelocity checkAngularVelocity(Object angularVelocityArg) {
+        return checkArg(angularVelocityArg, AngularVelocity.class, "angularVelocity");
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, fieldName = "unit")
+    public String getAngleUnit(Object angularVelocityArg) {
+        startBlockExecution(BlockType.GETTER, ".AngleUnit");
+        AngularVelocity angularVelocity = checkAngularVelocity(angularVelocityArg);
+        if (angularVelocity != null) {
+            AngleUnit angleUnit = angularVelocity.unit;
+            if (angleUnit != null) {
+                return angleUnit.toString();
+            }
+        }
+        return "";
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, fieldName = "xRotationRate")
+    public float getXRotationRate(Object angularVelocityArg) {
+        startBlockExecution(BlockType.GETTER, ".XRotationRate");
+        AngularVelocity angularVelocity = checkAngularVelocity(angularVelocityArg);
+        if (angularVelocity != null) {
+            return angularVelocity.xRotationRate;
+        }
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, fieldName = "yRotationRate")
+    public float getYRotationRate(Object angularVelocityArg) {
+        startBlockExecution(BlockType.GETTER, ".YRotationRate");
+        AngularVelocity angularVelocity = checkAngularVelocity(angularVelocityArg);
+        if (angularVelocity != null) {
+            return angularVelocity.yRotationRate;
+        }
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, fieldName = "zRotationRate")
+    public float getZRotationRate(Object angularVelocityArg) {
+        startBlockExecution(BlockType.GETTER, ".ZRotationRate");
+        AngularVelocity angularVelocity = checkAngularVelocity(angularVelocityArg);
+        if (angularVelocity != null) {
+            return angularVelocity.zRotationRate;
+        }
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, fieldName = "acquisitionTime")
+    public long getAcquisitionTime(Object angularVelocityArg) {
+        startBlockExecution(BlockType.GETTER, ".AcquisitionTime");
+        AngularVelocity angularVelocity = checkAngularVelocity(angularVelocityArg);
+        if (angularVelocity != null) {
+            return angularVelocity.acquisitionTime;
+        }
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, constructor = true)
+    public AngularVelocity create() {
+        startBlockExecution(BlockType.CREATE, "");
+        return new AngularVelocity();
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, constructor = true)
+    public AngularVelocity create_withArgs(
+            String angleUnitString, float xRotationRate, float yRotationRate,
+            float zRotationRate, long acquisitionTime) {
+        startBlockExecution(BlockType.CREATE, "");
+        AngleUnit angleUnit = checkAngleUnit(angleUnitString);
         if (angleUnit != null) {
-          return angleUnit.toString();
+            return new AngularVelocity(
+                    angleUnit, xRotationRate, yRotationRate, zRotationRate, acquisitionTime);
         }
-      } else {
-        RobotLog.e("AngularVelocity.getAngleUnit - angularVelocity is not an AngularVelocity");
-      }
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.getAngleUnit - caught " + e);
+        return null;
     }
-    return "";
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, fieldName = "xRotationRate")
-  public float getXRotationRate(Object angularVelocity) {
-    checkIfStopRequested();
-    try {
-      if (angularVelocity instanceof AngularVelocity) {
-        return ((AngularVelocity) angularVelocity).xRotationRate;
-      } else {
-        RobotLog.e("AngularVelocity.getXRotationRate - angularVelocity is not an AngularVelocity");
-      }
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.getXRotationRate - caught " + e);
-    }
-    return 0;
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, fieldName = "yRotationRate")
-  public float getYRotationRate(Object angularVelocity) {
-    checkIfStopRequested();
-    try {
-      if (angularVelocity instanceof AngularVelocity) {
-        return ((AngularVelocity) angularVelocity).yRotationRate;
-      } else {
-        RobotLog.e("AngularVelocity.getYRotationRate - angularVelocity is not an AngularVelocity");
-      }
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.getYRotationRate - caught " + e);
-    }
-    return 0;
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, fieldName = "zRotationRate")
-  public float getZRotationRate(Object angularVelocity) {
-    checkIfStopRequested();
-    try {
-      if (angularVelocity instanceof AngularVelocity) {
-        return ((AngularVelocity) angularVelocity).zRotationRate;
-      } else {
-        RobotLog.e("AngularVelocity.getZRotationRate - angularVelocity is not an AngularVelocity");
-      }
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.getZRotationRate - caught " + e);
-    }
-    return 0;
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, fieldName = "acquisitionTime")
-  public long getAcquisitionTime(Object angularVelocity) {
-    checkIfStopRequested();
-    try {
-      if (angularVelocity instanceof AngularVelocity) {
-        return ((AngularVelocity) angularVelocity).acquisitionTime;
-      } else {
-        RobotLog.e("AngularVelocity.getAcquisitionTime - angularVelocity is not an AngularVelocity");
-      }
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.getAcquisitionTime - caught " + e);
-    }
-    return 0;
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, constructor = true)
-  public AngularVelocity create() {
-    checkIfStopRequested();
-    try {
-      return new AngularVelocity();
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.create - caught " + e);
-    }
-    return null;
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, constructor = true)
-  public AngularVelocity create_withArgs(
-      String angleUnitString, float xRotationRate, float yRotationRate,
-      float zRotationRate, long acquisitionTime) {
-    checkIfStopRequested();
-    try {
-      AngleUnit angleUnit =
-          AngleUnit.valueOf(angleUnitString.toUpperCase(Locale.ENGLISH));
-      return new AngularVelocity(
-          angleUnit, xRotationRate, yRotationRate, zRotationRate, acquisitionTime);
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.create - caught " + e);
-    }
-    return null;
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, methodName = "toAngleUnit")
-  public AngularVelocity toAngleUnit(Object angularVelocity, String angleUnitString) {
-    checkIfStopRequested();
-    try {
-      if (angularVelocity instanceof AngularVelocity) {
-        AngleUnit angleUnit =
-            AngleUnit.valueOf(angleUnitString.toUpperCase(Locale.ENGLISH));
-        return ((AngularVelocity) angularVelocity).toAngleUnit(angleUnit);
-      } else {
-        RobotLog.e("AngularVelocity.toAngleUnit - angularVelocity is not an AngularVelocity");
-      }
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.toAngleUnit - caught " + e);
-    }
-    return null;
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  @Block(classes = AngularVelocity.class, fieldName = {"xRotationRate", "yRotationRate", "zRotationRate"})
-  public float getRotationRate(Object angularVelocity, String axisString) {
-    checkIfStopRequested();
-    try {
-      if (angularVelocity instanceof AngularVelocity) {
-        Axis axis = Axis.valueOf(axisString.toUpperCase(Locale.ENGLISH));
-        switch (axis) {
-          case X:
-            return ((AngularVelocity) angularVelocity).xRotationRate;
-          case Y:
-            return ((AngularVelocity) angularVelocity).yRotationRate;
-          case Z:
-            return ((AngularVelocity) angularVelocity).zRotationRate;
-          case UNKNOWN:
-            RobotLog.e("AngularVelocity.getRotationRate - axis is not an Axis");
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, methodName = "toAngleUnit")
+    public AngularVelocity toAngleUnit(Object angularVelocityArg, String angleUnitString) {
+        startBlockExecution(BlockType.FUNCTION, ".toAngleUnit");
+        AngularVelocity angularVelocity = checkAngularVelocity(angularVelocityArg);
+        AngleUnit angleUnit = checkAngleUnit(angleUnitString);
+        if (angularVelocity != null && angleUnit != null) {
+            return angularVelocity.toAngleUnit(angleUnit);
         }
-      } else {
-        RobotLog.e("AngularVelocity.getRotationRate - angularVelocity is not an AngularVelocity");
-      }
-    } catch (Exception e) {
-      RobotLog.e("AngularVelocity.getRotationRate - caught " + e);
+        return null;
     }
-    return 0;
-  }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    @Block(classes = AngularVelocity.class, fieldName = {"xRotationRate", "yRotationRate", "zRotationRate"})
+    public float getRotationRate(Object angularVelocityArg, String axisString) {
+        startBlockExecution(BlockType.FUNCTION, ".getRotationRate");
+        AngularVelocity angularVelocity = checkAngularVelocity(angularVelocityArg);
+        Axis axis = checkArg(axisString, Axis.class, "axis");
+        if (angularVelocity != null && axis != null) {
+            switch (axis) {
+                case X:
+                    return angularVelocity.xRotationRate;
+                case Y:
+                    return angularVelocity.yRotationRate;
+                case Z:
+                    return angularVelocity.zRotationRate;
+                case UNKNOWN:
+                    reportInvalidArg("axis", "Axis.X, Axis.Y, or Axis.Z");
+            }
+        }
+        return 0;
+    }
 }

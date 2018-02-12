@@ -3,8 +3,7 @@
 package com.google.blocks.ftcrobotcontroller.runtime;
 
 import android.webkit.JavascriptInterface;
-import com.qualcomm.robotcore.util.RobotLog;
-import java.util.Locale;
+
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
@@ -17,101 +16,76 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefau
  */
 class VuforiaTrackableDefaultListenerAccess extends Access {
 
-  VuforiaTrackableDefaultListenerAccess(BlocksOpMode blocksOpMode, String identifier) {
-    super(blocksOpMode, identifier);
-  }
+    VuforiaTrackableDefaultListenerAccess(BlocksOpMode blocksOpMode, String identifier) {
+        super(blocksOpMode, identifier, "VuforiaTrackableDefaultListener");
+    }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public void setPhoneInformation(
-      Object vuforiaTrackableDefaultListener, Object phoneLocationOnRobot,
-      String cameraDirectionString) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackableDefaultListener instanceof VuforiaTrackableDefaultListener) {
-        if (phoneLocationOnRobot instanceof OpenGLMatrix) {
-          CameraDirection cameraDirection =
-              CameraDirection.valueOf(cameraDirectionString.toUpperCase(Locale.ENGLISH));
-          ((VuforiaTrackableDefaultListener) vuforiaTrackableDefaultListener).setPhoneInformation(
-              (OpenGLMatrix) phoneLocationOnRobot, cameraDirection);
-        } else {
-          RobotLog.e("VuforiaTrackableDefaultListener.setPhoneInformation - " +
-              "phoneLocationOnRobot is not an OpenGLMatrix");
+    private VuforiaTrackableDefaultListener checkVuforiaTrackableDefaultListener(
+            Object vuforiaTrackableDefaultListenerArg) {
+        return checkArg(vuforiaTrackableDefaultListenerArg, VuforiaTrackableDefaultListener.class,
+                "vuforiaTrackableDefaultListener");
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void setPhoneInformation(
+            Object vuforiaTrackableDefaultListenerArg, Object phoneLocationOnRobotArg,
+            String cameraDirectionString) {
+        startBlockExecution(BlockType.FUNCTION, ".setPhoneInformation");
+        VuforiaTrackableDefaultListener vuforiaTrackableDefaultListener = checkVuforiaTrackableDefaultListener(
+                vuforiaTrackableDefaultListenerArg);
+        OpenGLMatrix phoneLocationOnRobot = checkOpenGLMatrix(phoneLocationOnRobotArg);
+        CameraDirection cameraDirection = checkVuforiaLocalizerCameraDirection(cameraDirectionString);
+        if (vuforiaTrackableDefaultListener != null && phoneLocationOnRobot != null && cameraDirection != null) {
+            vuforiaTrackableDefaultListener.setPhoneInformation(phoneLocationOnRobot, cameraDirection);
         }
-      } else {
-        RobotLog.e("VuforiaTrackableDefaultListener.setPhoneInformation - " +
-            "vuforiaTrackableDefaultListener is not a VuforiaTrackableDefaultListener");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackableDefaultListener.setPhoneInformation - caught " + e);
     }
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public boolean isVisible(Object vuforiaTrackableDefaultListener) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackableDefaultListener instanceof VuforiaTrackableDefaultListener) {
-        return ((VuforiaTrackableDefaultListener) vuforiaTrackableDefaultListener).isVisible();
-      } else {
-        RobotLog.e("VuforiaTrackableDefaultListener.isVisible - " +
-            "vuforiaTrackableDefaultListener is not a VuforiaTrackableDefaultListener");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackableDefaultListener.isVisible - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public boolean isVisible(Object vuforiaTrackableDefaultListenerArg) {
+        startBlockExecution(BlockType.FUNCTION, ".isVisible");
+        VuforiaTrackableDefaultListener vuforiaTrackableDefaultListener = checkVuforiaTrackableDefaultListener(
+                vuforiaTrackableDefaultListenerArg);
+        if (vuforiaTrackableDefaultListener != null) {
+            return vuforiaTrackableDefaultListener.isVisible();
+        }
+        return false;
     }
-    return false;
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public OpenGLMatrix getUpdatedRobotLocation(Object vuforiaTrackableDefaultListener) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackableDefaultListener instanceof VuforiaTrackableDefaultListener) {
-        return ((VuforiaTrackableDefaultListener) vuforiaTrackableDefaultListener).getUpdatedRobotLocation();
-      } else {
-        RobotLog.e("VuforiaTrackableDefaultListener.getUpdatedRobotLocation - " +
-            "vuforiaTrackableDefaultListener is not a VuforiaTrackableDefaultListener");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackableDefaultListener.getUpdatedRobotLocation - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public OpenGLMatrix getUpdatedRobotLocation(Object vuforiaTrackableDefaultListenerArg) {
+        startBlockExecution(BlockType.FUNCTION, ".getUpdatedRobotLocation");
+        VuforiaTrackableDefaultListener vuforiaTrackableDefaultListener = checkVuforiaTrackableDefaultListener(
+                vuforiaTrackableDefaultListenerArg);
+        if (vuforiaTrackableDefaultListener != null) {
+            return vuforiaTrackableDefaultListener.getUpdatedRobotLocation();
+        }
+        return null;
     }
-    return null;
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public OpenGLMatrix getPose(Object vuforiaTrackableDefaultListener) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackableDefaultListener instanceof VuforiaTrackableDefaultListener) {
-        return ((VuforiaTrackableDefaultListener) vuforiaTrackableDefaultListener).getPose();
-      } else {
-        RobotLog.e("VuforiaTrackableDefaultListener.getPose - " +
-            "vuforiaTrackableDefaultListener is not a VuforiaTrackableDefaultListener");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackableDefaultListener.getPose - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public OpenGLMatrix getPose(Object vuforiaTrackableDefaultListenerArg) {
+        startBlockExecution(BlockType.FUNCTION, ".getPose");
+        VuforiaTrackableDefaultListener vuforiaTrackableDefaultListener = checkVuforiaTrackableDefaultListener(
+                vuforiaTrackableDefaultListenerArg);
+        if (vuforiaTrackableDefaultListener != null) {
+            return vuforiaTrackableDefaultListener.getPose();
+        }
+        return null;
     }
-    return null;
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public String getRelicRecoveryVuMark(Object vuforiaTrackableDefaultListener) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackableDefaultListener instanceof VuforiaTrackableDefaultListener) {
-        return RelicRecoveryVuMark.from((VuforiaTrackableDefaultListener) vuforiaTrackableDefaultListener).toString();
-      } else {
-        RobotLog.e("VuforiaTrackableDefaultListener.getRelicRecoveryVuMark - " +
-            "vuforiaTrackableDefaultListener is not a VuforiaTrackableDefaultListener");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackableDefaultListener.getRelicRecoveryVuMark - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public String getRelicRecoveryVuMark(Object vuforiaTrackableDefaultListenerArg) {
+        startBlockExecution(BlockType.FUNCTION, ".getRelicRecoveryVuMark");
+        VuforiaTrackableDefaultListener vuforiaTrackableDefaultListener = checkVuforiaTrackableDefaultListener(
+                vuforiaTrackableDefaultListenerArg);
+        if (vuforiaTrackableDefaultListener != null) {
+            return RelicRecoveryVuMark.from(vuforiaTrackableDefaultListener).toString();
+        }
+        return RelicRecoveryVuMark.UNKNOWN.toString();
     }
-    return RelicRecoveryVuMark.UNKNOWN.toString();
-  }
 }
