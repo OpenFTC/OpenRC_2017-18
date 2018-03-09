@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package com.qualcomm.ftccommon;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,13 +82,10 @@ import com.qualcomm.robotcore.wifi.NetworkType;
 import org.firstinspires.ftc.robotcore.internal.ui.ThemedActivity;
 import org.openftc.rc.UiUtils;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class AboutActivity extends ThemedActivity {
 
@@ -252,19 +248,21 @@ public class AboutActivity extends ThemedActivity {
         return sb.toString();
     }
 
-  /** https://code.google.com/p/android/issues/detail?id=220039 */
-  //Modified for OpenFTC
-  protected String getBuildTime() {
-    String buildTime = "unavailable";
-    try {
-      long time = AboutActivity.this.getPackageManager().getPackageInfo(AboutActivity.this.getPackageName(), 0).lastUpdateTime;
-      Date date = new Date(time);
-      buildTime = date.toString();
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
+    /**
+     * https://code.google.com/p/android/issues/detail?id=220039
+     */
+    //Modified for OpenFTC
+    protected String getBuildTime() {
+        String buildTime = "unavailable";
+        try {
+            long time = getPackageManager().getPackageInfo(getPackageName(), 0).lastUpdateTime;
+            Date date = new Date(time);
+            buildTime = date.toString();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return buildTime;
     }
-    return buildTime;
-  }
 
     public static class Item {
         public String title = "";
