@@ -3,7 +3,7 @@
 package com.google.blocks.ftcrobotcontroller.runtime;
 
 import android.webkit.JavascriptInterface;
-import com.qualcomm.robotcore.util.RobotLog;
+
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
@@ -15,119 +15,89 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 class VuforiaTrackablesAccess extends Access {
 
-  VuforiaTrackablesAccess(BlocksOpMode blocksOpMode, String identifier) {
-    super(blocksOpMode, identifier);
-  }
-
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public int getSize(Object vuforiaTrackables) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackables instanceof VuforiaTrackables) {
-        return ((VuforiaTrackables) vuforiaTrackables).size();
-      } else {
-        RobotLog.e("VuforiaTrackables.getSize - vuforiaTrackables is not a VuforiaTrackables");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackables.getSize - caught " + e);
+    VuforiaTrackablesAccess(BlocksOpMode blocksOpMode, String identifier) {
+        super(blocksOpMode, identifier, "VuforiaTrackables");
     }
-    return 0;
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public String getName(Object vuforiaTrackables) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackables instanceof VuforiaTrackables) {
-        String name = ((VuforiaTrackables) vuforiaTrackables).getName();
-        if (name != null) {
-          return name;
+    private VuforiaTrackables checkVuforiaTrackables(
+            Object vuforiaTrackablesArg) {
+        return checkArg(vuforiaTrackablesArg, VuforiaTrackables.class, "vuforiaTrackables");
+    }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public int getSize(Object vuforiaTrackablesArg) {
+        startBlockExecution(BlockType.GETTER, ".Size");
+        VuforiaTrackables vuforiaTrackables = checkVuforiaTrackables(vuforiaTrackablesArg);
+        if (vuforiaTrackables != null) {
+            return vuforiaTrackables.size();
         }
-      } else {
-        RobotLog.e("VuforiaTrackables.getName - vuforiaTrackables is not a VuforiaTrackables");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackables.getName - caught " + e);
+        return 0;
     }
-    return "";
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public VuforiaLocalizer getLocalizer(Object vuforiaTrackables) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackables instanceof VuforiaTrackables) {
-        return ((VuforiaTrackables) vuforiaTrackables).getLocalizer();
-      } else {
-        RobotLog.e("VuforiaTrackables.getLocalizer - vuforiaTrackables is not a VuforiaTrackables");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackables.getLocalizer - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public String getName(Object vuforiaTrackablesArg) {
+        startBlockExecution(BlockType.GETTER, ".Name");
+        VuforiaTrackables vuforiaTrackables = checkVuforiaTrackables(vuforiaTrackablesArg);
+        if (vuforiaTrackables != null) {
+            String name = vuforiaTrackables.getName();
+            if (name != null) {
+                return name;
+            }
+        }
+        return "";
     }
-    return null;
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public VuforiaTrackable get(Object vuforiaTrackables, int index) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackables instanceof VuforiaTrackables) {
-        return ((VuforiaTrackables) vuforiaTrackables).get(index);
-      } else {
-        RobotLog.e("VuforiaTrackables.get - vuforiaTrackables is not a VuforiaTrackables");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackables.get - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public VuforiaLocalizer getLocalizer(Object vuforiaTrackablesArg) {
+        startBlockExecution(BlockType.GETTER, ".Localizer");
+        VuforiaTrackables vuforiaTrackables = checkVuforiaTrackables(vuforiaTrackablesArg);
+        if (vuforiaTrackables != null) {
+            return vuforiaTrackables.getLocalizer();
+        }
+        return null;
     }
-    return null;
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public void setName(Object vuforiaTrackables, String name) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackables instanceof VuforiaTrackables) {
-        ((VuforiaTrackables) vuforiaTrackables).setName(name);
-      } else {
-        RobotLog.e("VuforiaTrackables.setName - vuforiaTrackables is not a VuforiaTrackables");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackables.setName - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public VuforiaTrackable get(Object vuforiaTrackablesArg, int index) {
+        startBlockExecution(BlockType.FUNCTION, ".get");
+        VuforiaTrackables vuforiaTrackables = checkVuforiaTrackables(vuforiaTrackablesArg);
+        if (vuforiaTrackables != null) {
+            return vuforiaTrackables.get(index);
+        }
+        return null;
     }
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public void activate(Object vuforiaTrackables) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackables instanceof VuforiaTrackables) {
-        ((VuforiaTrackables) vuforiaTrackables).activate();
-      } else {
-        RobotLog.e("VuforiaTrackables.activate - vuforiaTrackables is not a VuforiaTrackables");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackables.activate - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void setName(Object vuforiaTrackablesArg, String name) {
+        startBlockExecution(BlockType.FUNCTION, ".setName");
+        VuforiaTrackables vuforiaTrackables = checkVuforiaTrackables(vuforiaTrackablesArg);
+        if (vuforiaTrackables != null) {
+            vuforiaTrackables.setName(name);
+        }
     }
-  }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public void deactivate(Object vuforiaTrackables) {
-    checkIfStopRequested();
-    try {
-      if (vuforiaTrackables instanceof VuforiaTrackables) {
-        ((VuforiaTrackables) vuforiaTrackables).deactivate();
-      } else {
-        RobotLog.e("VuforiaTrackables.deactivate - vuforiaTrackables is not a VuforiaTrackables");
-      }
-    } catch (Exception e) {
-      RobotLog.e("VuforiaTrackables.deactivate - caught " + e);
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void activate(Object vuforiaTrackablesArg) {
+        startBlockExecution(BlockType.FUNCTION, ".activate");
+        VuforiaTrackables vuforiaTrackables = checkVuforiaTrackables(vuforiaTrackablesArg);
+        if (vuforiaTrackables != null) {
+            vuforiaTrackables.activate();
+        }
     }
-  }
+
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void deactivate(Object vuforiaTrackablesArg) {
+        startBlockExecution(BlockType.FUNCTION, ".deactivate");
+        VuforiaTrackables vuforiaTrackables = checkVuforiaTrackables(vuforiaTrackablesArg);
+        if (vuforiaTrackables != null) {
+            vuforiaTrackables.deactivate();
+        }
+    }
 }

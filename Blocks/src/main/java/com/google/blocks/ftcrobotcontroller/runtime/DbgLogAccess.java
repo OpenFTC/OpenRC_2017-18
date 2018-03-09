@@ -13,23 +13,23 @@ import com.qualcomm.robotcore.util.RobotLog;
  */
 class DbgLogAccess extends Access {
 
-  public static final String TAG = "DbgLog";
+    public static final String TAG = "DbgLog";
 
-  DbgLogAccess(BlocksOpMode blocksOpMode, String identifier) {
-    super(blocksOpMode, identifier);
-  }
+    DbgLogAccess(BlocksOpMode blocksOpMode, String identifier) {
+        super(blocksOpMode, identifier, "DbgLog");
+    }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public void msg(String message) {
-    checkIfStopRequested();
-    RobotLog.ii(TAG, message);
-  }
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void msg(String message) {
+        startBlockExecution(BlockType.FUNCTION, ".msg");
+        RobotLog.ii(TAG, message);
+    }
 
-  @SuppressWarnings("unused")
-  @JavascriptInterface
-  public void error(String message) {
-    checkIfStopRequested();
-    RobotLog.ee(TAG, message);
-  }
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void error(String message) {
+        startBlockExecution(BlockType.FUNCTION, ".error");
+        RobotLog.ee(TAG, message);
+    }
 }
