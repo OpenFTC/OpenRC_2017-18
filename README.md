@@ -51,6 +51,10 @@ into [OpenRC-turbo](https://github.com/OpenFTC/OpenRC-turbo), which features fas
 # Release Notes
 To see the release notes for FIRST's releases of this SDK, see [doc/FIRST_CHANGELOG.md](doc/FIRST_CHANGELOG.md)
 
+## 2.0 beta 4
+* CRITICAL BUG FIX: Stock mode was broken in 2.0 beta 3
+* Fixed incompatiblity with version 3.1 of the Android Gradle Plugin
+
 ## 2.0 beta 3
 * Updated to version 3.7 of the official SDK, with a fix for Android 7.0 Nougat
 * Bug fix: USB devices plugged in while the app is running were not detected until "restart robot" was selected
