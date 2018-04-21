@@ -143,6 +143,7 @@ public class VuforiaLocalizerImpl implements VuforiaLocalizer {
     protected View loadingIndicator = null;
     protected Renderer renderer = null;
     protected boolean rendererIsActive = false;
+    private static volatile boolean awaitingTerminationOfPreviousInstance = false;
 
     // An object used for synchronizing Vuforia initialization, dataset loading
     // and the Android onDestroy() life cycle event. If the application is
@@ -191,6 +192,13 @@ public class VuforiaLocalizerImpl implements VuforiaLocalizer {
     //----------------------------------------------------------------------------------------------
 
     public VuforiaLocalizerImpl(VuforiaLocalizer.Parameters parameters) {
+        /*
+         * Since close() runs in a new thread when called after the OpMode
+         * is stopped, we need to check this flag to make sure that the
+         * old instance has fully shut down before we proceed.
+         */
+        while (awaitingTerminationOfPreviousInstance);
+
         this.parameters = parameters;
         this.activity = parameters.activity == null ? appUtil.getActivity() : parameters.activity;
         this.isExtendedTrackingActive = parameters.useExtendedTracking;
@@ -370,7 +378,14 @@ public class VuforiaLocalizerImpl implements VuforiaLocalizer {
         @Override
         public void onOpModePostStop(OpMode opMode) {
             /** We automatically shut down after the opmode (in which we are started) stops.  */
-            close();
+            awaitingTerminationOfPreviousInstance = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    close();
+                    awaitingTerminationOfPreviousInstance = false;
+                }
+            }).start();
         }
     }
 
