@@ -385,6 +385,11 @@ public class OpModeManagerImpl implements OpModeServices, OpModeManagerNotifier 
             @Override
             public void run() {
                 activeOpMode.stop();
+                if(!(activeOpMode instanceof DefaultOpMode))
+                {
+                    activeOpMode.telemetry.addLine("Status: OpMode terminated; awaiting switch to StopRobot");
+                    activeOpMode.telemetry.update();
+                }
             }
         });
         synchronized (this.listeners) {
