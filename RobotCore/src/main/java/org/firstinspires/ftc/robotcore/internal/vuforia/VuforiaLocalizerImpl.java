@@ -213,7 +213,7 @@ public class VuforiaLocalizerImpl implements VuforiaLocalizer {
         startAR();
     }
 
-    protected void close()
+    public void close()
     // Must be idempotent. Callable from ANY thread
     {
         stopAR();
@@ -534,10 +534,10 @@ public class VuforiaLocalizerImpl implements VuforiaLocalizer {
     protected void stopAR() {
         synchronized (startStopLock) {
             this.wantCamera = false;
+            removeGlSurface();
             stopCamera();
             destroyTrackables();
             deinitTracker();
-            removeGlSurface();
             Vuforia.deinit();
         }
     }

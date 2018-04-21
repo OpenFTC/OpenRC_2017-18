@@ -171,7 +171,10 @@ public interface VuforiaLocalizer {
         }
     }
 
-    ;
+    /***
+     * Closes Vuforia the same way that it is closed at the end of an OpMode
+     */
+    void close();
 
     /**
      * {@link Parameters} provides configuration information for instantiating the Vuforia localizer
