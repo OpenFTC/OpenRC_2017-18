@@ -46,7 +46,6 @@ import com.qualcomm.hardware.hitechnic.HiTechnicNxtTouchSensor;
 import com.qualcomm.hardware.hitechnic.HiTechnicNxtTouchSensorMultiplexer;
 import com.qualcomm.hardware.hitechnic.HiTechnicNxtUltrasonicSensor;
 import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
-import com.qualcomm.hardware.lynx.LynxI2cDeviceSynch;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.lynx.LynxUsbDevice;
 import com.qualcomm.hardware.lynx.LynxUsbDeviceImpl;
@@ -78,7 +77,6 @@ import com.qualcomm.robotcore.hardware.CompassSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorImpl;
-import com.qualcomm.robotcore.hardware.DcMotorImplEx;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DeviceManager;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -129,6 +127,8 @@ import com.qualcomm.robotcore.util.ThreadPool;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.internal.system.Assert;
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbException;
+import org.openftc.hardware.rev.OpenRevHub;
+import org.openftc.hardware.rev.motorStuff.OpenDcMotorImpl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -407,7 +407,7 @@ public class HardwareDeviceManager implements DeviceManager {
 
     @Override
     public DcMotor createDcMotorEx(DcMotorController controller, int portNumber, @NonNull MotorConfigurationType motorType, String name) {
-        return new DcMotorImplEx(controller, portNumber, DcMotor.Direction.FORWARD, motorType);
+        return new OpenDcMotorImpl(controller, portNumber, DcMotor.Direction.FORWARD, motorType);
     }
 
 
@@ -567,7 +567,7 @@ public class HardwareDeviceManager implements DeviceManager {
     @Override
     public RobotCoreLynxModule createLynxModule(RobotCoreLynxUsbDevice lynxUsbDevice, int moduleAddress, boolean isParent, String name) {
         RobotLog.v("Creating Lynx Module - mod=%d parent=%s", moduleAddress, Boolean.toString(isParent));
-        return new LynxModule((LynxUsbDevice) lynxUsbDevice, moduleAddress, isParent);
+        return new OpenRevHub((LynxUsbDevice) lynxUsbDevice, moduleAddress, isParent);
     }
 
     /* (non-Javadoc)
