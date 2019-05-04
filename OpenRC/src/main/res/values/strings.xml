@@ -11,10 +11,16 @@
         \n\nFor more information about OpenRC and the OpenFTC community responsible for it, please visit http://openftc.org/OpenRC
     </string>
 
-    <string name="openRcLegalityWarning">
-        OpenRC has been ruled ILLEGAL for competition use.
+    <string name="openRcLegalityWarningRc">
+        Warning: OpenRC has been ruled ILLEGAL for competition use.
 
         \n\nUse Android Studio to switch to the competition-legal stock build variant before going to a competition.
+
+        \n\nhttp://openftc.org/OpenRC/legality
+    </string>
+
+    <string name="openRcLegalityWarningDs">
+        Warning: This is a modified Driver Station and is ILLEGAL for competition use.
 
         \n\nhttp://openftc.org/OpenRC/legality
     </string>

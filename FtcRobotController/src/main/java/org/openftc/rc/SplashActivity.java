@@ -35,6 +35,7 @@ import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
 import com.cyanogenmod.updater.utils.MD5;
+import com.qualcomm.ftcrobotcontroller.*;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
@@ -56,25 +57,54 @@ public class SplashActivity extends Activity
     File libOnSdcard;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setupVuforia();
-        passthroughIntentIfNecessary(getIntent());
-        finish();
+
+        /*
+         * Check to see if the DS app is also installed.
+         * If it is, then show the user a dialog explaining
+         * the situation and offer them the option to uninstall
+         * either the DS app or the RC app
+         */
+        if (com.qualcomm.ftcrobotcontroller.BuildConfig.IS_OPENRC && Utils.isFtcDriverStationInstalled(getPackageManager()))
+        {
+            /*
+             * Houston, we have a problem
+             */
+            UiUtils.showBothAppsInstalledDialog(this);
+        }
+        else
+        {
+            /*
+             * Start loading the main activity. After it's loaded, close
+             * down the splash screen
+             */
+            Intent intent = new Intent(this, FtcRobotControllerActivity.class);
+            startActivity(intent);
+
+            passthroughIntentIfNecessary(getIntent());
+            finish();
+        }
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent)
+    {
         super.onNewIntent(intent);
         passthroughIntentIfNecessary(intent);
     }
 
-    private void passthroughIntentIfNecessary(Intent receivedIntent) {
-        if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(receivedIntent.getAction())) {
+    private void passthroughIntentIfNecessary(Intent receivedIntent)
+    {
+        if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(receivedIntent.getAction()))
+        {
             RobotLog.dd(TAG, "Passing ACTION_USB_DEVICE_ATTACHED intent to FtcRobotControllerActivity.");
             Intent passthroughIntent = new Intent(this, FtcRobotControllerActivity.class);
             passthroughIntent.setAction(receivedIntent.getAction());
-            if(receivedIntent.getExtras() != null) {
+            if(receivedIntent.getExtras() != null)
+            {
                 passthroughIntent.putExtras(receivedIntent.getExtras());
             }
             startActivity(passthroughIntent);
@@ -82,11 +112,12 @@ public class SplashActivity extends Activity
     }
 
     @SuppressLint("UnsafeDynamicallyLoadedCode")
-    private void setupVuforia() {
+    private void setupVuforia()
+    {
         try
         {
             /*
-             * Attempt to set up the Vuforai library for loading in
+             * Attempt to set up the Vuforia library for loading in
              * the next statement
              */
             setupVuforiaFiles();
@@ -95,13 +126,6 @@ public class SplashActivity extends Activity
              * We've been given the go-ahead! Load up libVuforiaReal.so
              */
             System.load(libInProtectedStorage.getAbsolutePath());
-
-            /*
-             * Start loading the main activity. After it's loaded, close
-             * down the splash screen
-             */
-            Intent intent = new Intent(this, FtcRobotControllerActivity.class);
-            startActivity(intent);
         }
         catch (VuforiaNotFoundException e)
         {

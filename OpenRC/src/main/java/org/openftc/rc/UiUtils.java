@@ -14,13 +14,13 @@ import android.view.View;
 import android.widget.TextView;
 
 public class UiUtils {
-    public static void showDsAppInstalledDialog(final Activity activity) {
+    public static void showBothAppsInstalledDialog(final Activity activity) {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(activity);
         builder.setCancelable(false);
 
-        String test = "<font color='#FF0000'>This device has the FTC Driver Station app installed.</font>" +
-                "<br> <br>You need to uninstall either this Robot Controller (RC) app or the Driver Station (DS) app.";
+        String test = "<font color='#FF0000'>This device has both the Driver Station and Robot Controller apps installed.</font>" +
+                "<br> <br>You need to remove either the Driver Station (DS) or Robot Controller (RC).";
 
         builder.setTitle("Ruh-roh!")
                 .setMessage(Html.fromHtml(test))
@@ -69,8 +69,16 @@ public class UiUtils {
 
     }
 
-    public static void showLegalityAcknowlegementDialog(final Activity activity) {
-        final SpannableString dialogText = new SpannableString(activity.getText(R.string.openRcLegalityWarning));
+    public static void showLegalityAcknowlegementDialogRc(Activity activity) {
+        showLegalityAcknowlegementDialog(activity, activity.getResources().getString(R.string.openRcLegalityWarningRc));
+    }
+
+    public static void showLegalityAcknowlegementDialogDs(Activity activity) {
+        showLegalityAcknowlegementDialog(activity, activity.getResources().getString(R.string.openRcLegalityWarningDs));
+    }
+
+    private static void showLegalityAcknowlegementDialog(Activity activity, String msg) {
+        final SpannableString dialogText = new SpannableString(msg);
         Linkify.addLinks(dialogText, Linkify.WEB_URLS);
 
         final AlertDialog legalityDialog = new AlertDialog.Builder(activity)
@@ -87,6 +95,7 @@ public class UiUtils {
                         Utils.setLegalityAcknowledgementStatus(false);
                     }
                 })
+                .setCancelable(false)
                 .create();
         legalityDialog.show();
 

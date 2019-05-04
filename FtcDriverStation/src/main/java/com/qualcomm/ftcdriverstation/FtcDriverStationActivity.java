@@ -54,7 +54,6 @@ import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
-import android.util.Log;
 import android.view.InputEvent;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -147,7 +146,8 @@ import org.firstinspires.ftc.robotcore.internal.ui.GamepadUser;
 import org.firstinspires.ftc.robotcore.internal.ui.ProgressParameters;
 import org.firstinspires.ftc.robotcore.internal.ui.ThemedActivity;
 import org.firstinspires.ftc.robotcore.internal.ui.UILocation;
-import org.firstinspires.inspection.DsInspectionActivity;
+import org.openftc.rc.UiUtils;
+import org.openftc.rc.Utils;
 
 @SuppressLint({"DefaultLocale"})
 public class FtcDriverStationActivity extends ThemedActivity implements NetworkConnectionCallback, RecvLoopCallback, OnSharedPreferenceChangeListener, OpModeSelectionDialogListener, BatteryWatcher, InputDeviceListener, ClientCallback
@@ -493,6 +493,12 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
     {
         super.onCreate(savedInstanceState);
         RobotLog.vv(TAG, "onCreate()");
+
+        if(!Utils.hasAcknowledgedLegalityStatus())
+        {
+            UiUtils.showLegalityAcknowlegementDialogDs(this);
+        }
+
         uiThread = Thread.currentThread();
         setContentView(R.layout.activity_ftc_driver_station);
         context = this;
