@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scrollViewLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="?backgroundMedium"
+        android:keepScreenOn="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="80.0dip"
+            android:background="@color/background_black">
+
+            <TextView
+                android:id="@+id/textDeviceName"
+                android:text="1234-DS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8.0dip"
+                android:textColor="?textWhite"
+                android:textSize="16.0sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="THIS DS IS NOT COMP LEGAL"
+                android:textColor="@color/bright_red"
+                android:padding="8dp"
+                android:layout_toRightOf="@id/textDeviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/DS_battery_icon"
+                android:layout_width="50.0dip"
+                android:layout_height="20.0dip"
+                android:layout_below="@+id/textDeviceName"
+                android:layout_margin="10.0dip"
+                android:adjustViewBounds="true"
+                android:onClick="onClickDSBatteryToast"
+                android:src="@drawable/icon_battery100"/>
+
+            <TextView
+                android:id="@+id/dsBatteryInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/DS_battery_icon"
+                android:layout_alignTop="@+id/DS_battery_icon"
+                android:layout_below="@+id/textDeviceName"
+                android:layout_toEndOf="@+id/DS_battery_icon"
+                android:textColor="?textWhite"
+                android:textSize="14.0sp"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:id="@+id/menu_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="10.0dip"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:padding="15.0dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_menu"/>
+
+            <TextView
+                android:id="@+id/textDsUiStateIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="O"/>
+
+            <ImageView
+                android:id="@+id/user2_icon_clicked"
+                android:layout_width="40.0dip"
+                android:layout_height="25.0dip"
+                android:layout_centerVertical="true"
+                android:layout_margin="2.0dip"
+                android:layout_toStartOf="@+id/menu_buttons"
+                android:adjustViewBounds="true"
+                android:background="@drawable/icon_controller"/>
+
+            <ImageView
+                android:id="@+id/user2_icon_base"
+                android:layout_width="40.0dip"
+                android:layout_height="25.0dip"
+                android:layout_centerVertical="true"
+                android:layout_margin="2.0dip"
+                android:layout_toStartOf="@+id/menu_buttons"
+                android:adjustViewBounds="true"
+                android:background="@drawable/icon_controller"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/user2_icon_clicked"
+                android:layout_alignStart="@+id/user2_icon_clicked"
+                android:layout_below="@+id/user2_icon_clicked"
+                android:gravity="center_horizontal"
+                android:text="@string/user2_label"
+                android:textColor="?textWhite"
+                android:textSize="10.0sp"/>
+
+            <ImageView
+                android:id="@+id/user1_icon_clicked"
+                android:layout_width="40.0dip"
+                android:layout_height="25.0dip"
+                android:layout_centerVertical="true"
+                android:layout_margin="2.0dip"
+                android:layout_toStartOf="@+id/user2_icon_clicked"
+                android:adjustViewBounds="true"
+                android:background="@drawable/icon_controller"/>
+
+            <ImageView
+                android:id="@+id/user1_icon_base"
+                android:layout_width="40.0dip"
+                android:layout_height="25.0dip"
+                android:layout_centerVertical="true"
+                android:layout_margin="2.0dip"
+                android:layout_toStartOf="@+id/user2_icon_clicked"
+                android:adjustViewBounds="true"
+                android:background="@drawable/icon_controller"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/user1_icon_clicked"
+                android:layout_alignStart="@+id/user1_icon_clicked"
+                android:layout_below="@+id/user1_icon_clicked"
+                android:gravity="center_horizontal"
+                android:text="@string/user1_label"
+                android:textColor="?textWhite"
+                android:textSize="10.0sp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/wifi_info_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="100.0dip"
+            android:layout_margin="2.0dip"
+            android:alpha="0.3"
+            android:background="?backgroundVeryDark"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="3.0">
+
+            <RelativeLayout
+                android:id="@+id/icon_and_config"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:id="@+id/robot_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50.0dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10.0dip"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_robotcontroller"/>
+
+                <TextView
+                    android:id="@+id/activeConfigName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/robot_logo"
+                    android:gravity="center_horizontal"
+                    android:text="&lt;active_config>"
+                    android:textColor="?textWhite"
+                    android:textSize="12.0sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/network_circle"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0">
+
+                <ImageView
+                    android:id="@+id/circle_wifi"
+                    android:layout_width="90.0dip"
+                    android:layout_height="90.0dip"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerInside"
+                    android:src="?circleMedium"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/wifiDirect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/network_connection_label"
+                        android:textColor="?textWhite"
+                        android:textSize="12.0sp"/>
+
+                    <TextView
+                        android:id="@+id/textWifiDirectStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/wifiDirect"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="?textWhite"
+                        android:textSize="14.0sp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ping_circle"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/circle_ping"
+                    android:layout_width="90.0dip"
+                    android:layout_height="90.0dip"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerInside"
+                    android:src="?circleMedium"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/ping"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/ping_label"
+                        android:textColor="?textWhite"
+                        android:textSize="12.0sp"/>
+
+                    <TextView
+                        android:id="@+id/textPingStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ping"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="?textWhite"
+                        android:textSize="14.0sp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/battery_info_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="55.0dip"
+            android:alpha="0.3"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/phoneBattery"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="2.0dip"
+                android:layout_weight="1.0"
+                android:background="?backgroundVeryDark"
+                android:gravity="center_vertical"
+                android:onClick="onClickRCBatteryToast"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/rc_battery_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70.0dip"
+                    android:layout_margin="15.0dip"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_battery100"/>
+
+                <TextView
+                    android:id="@+id/rcBatteryTelemetry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15.0dip"
+                    android:textColor="?textWhite"
+                    android:textSize="14.0sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rcBatteryBackgroundReference"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="?backgroundVeryDark"
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:id="@+id/robot_battery_background"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="2.0dip"
+                android:layout_weight="1.0"
+                android:background="?backgroundVeryDark"
+                android:gravity="center_vertical"
+                android:onClick="onClickRobotBatteryToast"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/rc_no_voltage_sensor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:orientation="horizontal"
+                    android:text="@string/noVoltageSensor"
+                    android:textColor="?textWhite"
+                    android:textSize="14.0sp"
+                    android:visibility="visible"/>
+
+                <LinearLayout
+                    android:id="@+id/rc_battery_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/robot_battery_icon"
+                        android:layout_width="48.0dip"
+                        android:layout_height="20.0dip"
+                        android:layout_margin="15.0dip"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/icon_voltage"/>
+
+                    <LinearLayout
+                        android:id="@+id/battery_voltage_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="2.0dip"
+                        android:layout_marginTop="4.0dip"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/robotBatteryTelemetry"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="0.0dip"
+                            android:gravity="center_horizontal"
+                            android:text="00.00 V"
+                            android:textColor="?textWhite"
+                            android:textSize="16.0sp"/>
+
+                        <TextView
+                            android:id="@+id/robotBatteryMinimum"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0.0dip"
+                            android:gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:text="( 00.00 V )"
+                            android:textAlignment="center"
+                            android:textColor="?textWhite"
+                            android:textSize="12.0sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/background_black">
+
+            <LinearLayout
+                android:id="@+id/opmodeMenu"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/buttonAutonomous"
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2.0dip"
+                            android:layout_marginStart="2.0dip"
+                            android:layout_marginTop="2.0dip"
+                            android:layout_weight="0.5"
+                            android:background="?backgroundLight"
+                            android:drawableStart="@drawable/icon_arrow"
+                            android:enabled="false"
+                            android:gravity="start|center"
+                            android:onClick="onClickButtonAutonomous"
+                            android:paddingLeft="20.0dip"
+                            android:paddingRight="20.0dip"
+                            android:textColor="?textWhite"
+                            android:textSize="12.0sp"/>
+
+                        <Button
+                            android:id="@+id/buttonTeleOp"
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2.0dip"
+                            android:layout_marginEnd="2.0dip"
+                            android:layout_marginTop="2.0dip"
+                            android:layout_weight="0.5"
+                            android:background="?backgroundLight"
+                            android:drawableEnd="@drawable/icon_arrow"
+                            android:enabled="false"
+                            android:gravity="start|center"
+                            android:onClick="onClickButtonTeleOp"
+                            android:paddingLeft="20.0dip"
+                            android:paddingRight="20.0dip"
+                            android:textColor="?textWhite"
+                            android:textSize="12.0sp"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/chooseOpModePrompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:text="@string/buttonTextSelectOpMode"
+                        android:textColor="?textWhite"
+                        android:textSize="12.0sp"
+                        android:visibility="visible"/>
+
+                    <TextView
+                        android:id="@+id/currentOpModeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:text="(replaced)"
+                        android:textColor="?textWhite"
+                        android:textSize="16.0sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/controlPanelRegion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/opmodeMenu"
+                android:layout_centerInParent="true">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="200.0dip"
+                    android:layout_marginEnd="2.0dip"
+                    android:layout_marginStart="2.0dip"
+                    android:background="?backgroundMediumDark">
+
+                    <ImageView
+                        android:id="@+id/controlPanelBackgroundCircle"
+                        android:layout_width="314.0dip"
+                        android:layout_height="314.0dip"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="-57.0dip"
+                        android:layout_marginTop="-57.0dip"
+                        android:scaleType="centerInside"
+                        android:src="?circleMediumMedium"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/controlPanel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200.0dip"
+                    android:layout_marginEnd="2.0dip"
+                    android:layout_marginStart="2.0dip"
+                    android:alpha="0.3">
+
+                    <RelativeLayout
+                        android:id="@+id/buttonsAndTimer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <FrameLayout
+                            android:id="@+id/buttonsFrame"
+                            android:layout_width="170.0dip"
+                            android:layout_height="170.0dip"
+                            android:layout_marginEnd="5.0dip"
+                            android:layout_marginStart="35.0dip">
+
+                            <FrameLayout
+                                android:id="@+id/buttonStart"
+                                android:layout_width="170.0dip"
+                                android:layout_height="170.0dip"
+                                android:visibility="invisible">
+
+                                <ImageButton
+                                    android:layout_width="170.0dip"
+                                    android:layout_height="170.0dip"
+                                    android:layout_gravity="center"
+                                    android:adjustViewBounds="true"
+                                    android:background="@android:color/transparent"
+                                    android:cropToPadding="true"
+                                    android:enabled="false"
+                                    android:onClick="onClickButtonStart"
+                                    android:padding="10.0dip"
+                                    android:scaleType="centerInside"
+                                    android:src="?buttonOutline"/>
+
+                                <ImageButton
+                                    android:id="@+id/buttonStartArrow"
+                                    android:layout_width="55.0dip"
+                                    android:layout_height="55.0dip"
+                                    android:layout_gravity="center"
+                                    android:adjustViewBounds="true"
+                                    android:background="@android:color/transparent"
+                                    android:onClick="onClickButtonStart"
+                                    android:scaleType="fitCenter"/>
+
+                                <ImageButton
+                                    android:id="@+id/buttonStartArrowColor"
+                                    android:layout_width="1.0dip"
+                                    android:layout_height="1.0dip"
+                                    android:background="?backgroundMediumLight"
+                                    android:visibility="gone"/>
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/buttonInit"
+                                android:layout_width="170.0dip"
+                                android:layout_height="170.0dip"
+                                android:visibility="visible">
+
+                                <ImageButton
+                                    android:layout_width="170.0dip"
+                                    android:layout_height="170.0dip"
+                                    android:layout_gravity="center"
+                                    android:adjustViewBounds="true"
+                                    android:background="@android:color/transparent"
+                                    android:cropToPadding="true"
+                                    android:enabled="false"
+                                    android:onClick="onClickButtonInit"
+                                    android:padding="10.0dip"
+                                    android:scaleType="centerInside"
+                                    android:src="?buttonOutline"/>
+
+                                <TextView
+                                    style="@style/FtcTextViewStyleBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="INIT"
+                                    android:textColor="?backgroundMedium"
+                                    android:textSize="25.0sp"/>
+                            </FrameLayout>
+
+                            <ImageButton
+                                android:id="@+id/buttonStop"
+                                android:layout_width="170.0dip"
+                                android:layout_height="170.0dip"
+                                android:adjustViewBounds="true"
+                                android:background="@android:color/transparent"
+                                android:cropToPadding="true"
+                                android:enabled="false"
+                                android:onClick="onClickButtonStop"
+                                android:padding="10.0dip"
+                                android:scaleType="centerInside"
+                                android:src="?buttonStop"
+                                android:visibility="invisible"/>
+                        </FrameLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/timerAndTimerSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/buttonsFrame"
+                            android:onClick="onClickTimer">
+
+                            <FrameLayout
+                                android:id="@+id/timerOnly"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageButton
+                                    android:id="@+id/timerBackground"
+                                    android:layout_width="70.0dip"
+                                    android:layout_height="70.0dip"
+                                    android:adjustViewBounds="true"
+                                    android:background="@android:color/transparent"
+                                    android:cropToPadding="true"
+                                    android:onClick="onClickTimer"
+                                    android:scaleType="fitCenter"
+                                    android:src="?circleVeryVeryDark"
+                                    android:visibility="visible"/>
+
+                                <ImageView
+                                    android:id="@+id/timerStopWatch"
+                                    android:layout_width="30.0dip"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:adjustViewBounds="true"
+                                    android:background="@android:color/transparent"
+                                    android:cropToPadding="true"
+                                    android:onClick="onClickTimer"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/ic_launcher"
+                                    android:visibility="visible"/>
+
+                                <TextView
+                                    android:id="@+id/timerStopWatchColorHolder"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="?backgroundLight"
+                                    android:visibility="gone"/>
+
+                                <TextView
+                                    android:id="@+id/timerText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:onClick="onClickTimer"
+                                    android:text="30"
+                                    android:textColor="?textBright"
+                                    android:textSize="30.0sp"
+                                    android:visibility="gone"/>
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/timerSwitch"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/timerOnly"
+                                android:layout_centerHorizontal="true"
+                                android:paddingTop="8.0dip">
+
+                                <ImageButton
+                                    android:id="@+id/timerSwitchOff"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:adjustViewBounds="true"
+                                    android:background="@android:color/transparent"
+                                    android:onClick="onClickTimer"
+                                    android:scaleType="fitCenter"
+                                    android:src="?timerSwitchOff"
+                                    android:visibility="visible"/>
+
+                                <ImageButton
+                                    android:id="@+id/timerSwitchOn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:adjustViewBounds="true"
+                                    android:background="@android:color/transparent"
+                                    android:onClick="onClickTimer"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/timer_switch_on"
+                                    android:visibility="gone"/>
+                            </FrameLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <ImageButton
+                        android:id="@+id/buttonInitStop"
+                        android:layout_width="80.0dip"
+                        android:layout_height="80.0dip"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:cropToPadding="true"
+                        android:enabled="false"
+                        android:onClick="onClickButtonStop"
+                        android:padding="5.0dip"
+                        android:scaleType="centerInside"
+                        android:src="?buttonStop"
+                        android:visibility="visible"/>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/controlPanelRegion"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="THIS DRIVER STATION IS NOT COMPETITION LEGAL!"
+                    android:textColor="@color/bright_orange"
+                    android:padding="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/textSystemTelemetry"
+                    style="@style/FtcTextViewStyleBold"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?textBright"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/textTelemetry"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2.0dip"
+                    android:minLines="8"
+                    android:textColor="?textWhite"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

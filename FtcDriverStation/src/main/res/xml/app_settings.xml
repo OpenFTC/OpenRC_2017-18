@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/prefcat_configure_ds">
+        <PreferenceScreen
+            android:key="@string/pref_pair_rc"
+            android:summary="@string/prefedit_pair_rc_summary"
+            android:title="@string/prefedit_pair_rc">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="com.qualcomm.ftcdriverstation.FtcPairNetworkConnectionActivity"
+                android:targetClass="com.qualcomm.ftcdriverstation.FtcPairNetworkConnectionActivity"
+                android:targetPackage="com.qualcomm.ftcdriverstation"/>
+        </PreferenceScreen>
+        <EditTextPreference
+            android:defaultValue=""
+            android:key="@string/pref_device_name"
+            android:summary="@string/prefedit_device_name_summary_ds"
+            android:title="@string/prefedit_device_name_ds"/>
+        <org.firstinspires.ftc.robotcore.internal.ui.ColorListPreference
+            android:entries="@array/app_theme_names"
+            android:entryValues="@array/app_theme_tokens"
+            android:key="@string/pref_app_theme"
+            android:summary="@string/prefedit_app_theme_summary_ds"
+            android:title="@string/prefedit_app_theme_ds"
+            app:colors="@array/app_theme_colors"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefcat_configure_robot">
+        <EditTextPreference
+            android:defaultValue=""
+            android:key="@string/pref_device_name_rc"
+            android:summary="@string/prefedit_device_name_summary_rc"
+            android:title="@string/prefedit_device_name_rc"/>
+        <org.firstinspires.ftc.robotcore.internal.ui.ColorListPreference
+            android:entries="@array/app_theme_names"
+            android:entryValues="@array/app_theme_tokens"
+            android:key="@string/pref_app_theme_rc"
+            android:summary="@string/prefedit_app_theme_summary_rc"
+            android:title="@string/prefedit_app_theme_rc"
+            app:colors="@array/app_theme_colors"/>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_sound_on_off_rc"
+            android:summary="@string/prefedit_sound_on_off_summary"
+            android:title="@string/prefedit_sound_on_off"/>
+        <PreferenceScreen
+            android:key="@string/pref_launch_advanced_rc_settings"
+            android:summary="@string/summaryAdvancedRCSettings"
+            android:title="@string/titleAdvancedRCSettings">
+            <intent
+                android:targetClass="com.qualcomm.ftccommon.FtcAdvancedRCSettingsActivity"
+                android:targetPackage="@string/packageName"/>
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefcat_gamepad">
+        <ListPreference
+            android:defaultValue="@string/gamepad_default"
+            android:dialogTitle="@string/prefedit_gamepad_user1_type"
+            android:entries="@array/pref_gamepad_type_entries"
+            android:entryValues="@array/pref_gamepad_type_entries"
+            android:key="@string/pref_gamepad_user1_type_key"
+            android:summary="%s"
+            android:title="@string/prefedit_gamepad_user1_type"/>
+        <ListPreference
+            android:defaultValue="@string/gamepad_default"
+            android:dialogTitle="@string/prefedit_gamepad_user2_type"
+            android:entries="@array/pref_gamepad_type_entries"
+            android:entryValues="@array/pref_gamepad_type_entries"
+            android:key="@string/pref_gamepad_user2_type_key"
+            android:summary="%s"
+            android:title="@string/prefedit_gamepad_user2_type"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefcat_logging">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_debug_driver_station_logs"
+            android:summary="@string/prefedit_debug_driver_station_logs_summary"
+            android:title="@string/prefedit_debug_driver_station_logs"/>
+    </PreferenceCategory>
+</PreferenceScreen>

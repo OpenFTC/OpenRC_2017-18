@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@id/action_settings" android:orderInCategory="100" android:title="@string/action_settings" android:showAsAction="never" />
+    <item android:id="@id/action_restart_robot" android:orderInCategory="200" android:title="@string/action_restart_robot" android:showAsAction="never" />
+    <item android:id="@id/action_configure" android:orderInCategory="300" android:title="@string/configure_robot_menu_item" android:showAsAction="never" />
+    <item android:id="@id/action_programming_mode" android:visible="false" android:orderInCategory="400" android:title="@string/action_programming_mode" android:showAsAction="never" />
+    <item android:id="@id/action_program_and_manage" android:orderInCategory="450" android:title="@string/action_programing_and_manage" android:showAsAction="never" />
+    <item android:id="@id/action_inspection_mode" android:orderInCategory="500" android:title="@string/inspection_mode_menu_item" android:showAsAction="never" />
+    <item android:icon="@android:drawable/ic_menu_info_details" android:id="@id/action_about" android:orderInCategory="999" android:title="@string/about_activity" />
+    <item android:icon="@android:drawable/ic_menu_info_details" android:id="@id/action_exit_app" android:orderInCategory="1000" android:title="@string/action_exit_app" />
+</menu>

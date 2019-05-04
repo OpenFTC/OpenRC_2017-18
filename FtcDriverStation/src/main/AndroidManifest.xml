@@ -1,0 +1,53 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.qualcomm.ftcdriverstation">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppThemeRedDS"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <!-- The main robot controller activity -->
+        <activity
+            android:name="com.qualcomm.ftcdriverstation.FtcDriverStationActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+
+
+        </activity>
+
+        <activity
+            android:name="com.qualcomm.ftcdriverstation.FtcDriverStationSettingsActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+
+        </activity>
+
+        <activity
+            android:name="com.qualcomm.ftcdriverstation.FtcDriverStationInspectionReportsActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+
+        </activity>
+
+        <activity
+            android:name="com.qualcomm.ftcdriverstation.FtcPairNetworkConnectionActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+
+        </activity>
+
+
+    </application>
+</manifest>

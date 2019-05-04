@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:keepScreenOn="true">
+
+    <TextView
+        android:id="@+id/textWifiInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pair_instructions"/>
+
+    <TextView
+        android:gravity="left|right|center_horizontal|fill_horizontal|center|fill|start|end"
+        android:id="@+id/textViewWifiNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/pair_wifi_name"
+        android:layout_below="@+id/textWifiInstructions"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/textViewWifiName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="name"
+        android:layout_below="@+id/textWifiInstructions"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/textViewWifiNameLabel"
+        android:layout_alignEnd="@+id/textWifiInstructions"/>
+
+    <TextView
+        android:gravity="left|right|center_horizontal|fill_horizontal|center|fill|start|end"
+        android:id="@+id/textViewSoftApPasswordLabel"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Wifi Password: "
+        android:layout_below="@+id/textViewWifiNameLabel"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:id="@+id/editTextSoftApPassword"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewWifiName"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/textViewSoftApPasswordLabel"
+        android:layout_alignEnd="@+id/textWifiInstructions"/>
+
+    <TextView
+        android:id="@+id/textViewSoftApPasswordInstructions"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/softapWifiInfo"
+        android:layout_below="@+id/editTextSoftApPassword"
+        android:layout_marginStart="5dp"
+        android:layout_alignEnd="@+id/textWifiInstructions"/>
+
+    <Switch
+        android:enabled="true"
+        android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+        android:id="@+id/wifi_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:checked="true"
+        android:text="@string/wifi_filter_switch"
+        android:layout_below="@+id/textViewSoftApPasswordInstructions"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+
+        android:id="@+id/textWifiDirectDevices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="@string/network_connection_devices"
+        android:layout_below="@+id/wifi_filter"
+        android:layout_alignParentStart="true"/>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textWifiDirectDevices"
+        android:layout_alignStart="@+id/textWifiInstructions">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/radioGroupDevices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
