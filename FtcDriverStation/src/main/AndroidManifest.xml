@@ -1,6 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.qualcomm.ftcdriverstation">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.qualcomm.ftcdriverstation">
 
     <application
         android:allowBackup="true"
@@ -9,7 +10,7 @@
         android:theme="@style/AppThemeRedDS"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <!-- The main robot controller activity -->
+        <!-- The main driver station activity -->
         <activity
             android:screenOrientation="portrait"
             android:name="com.qualcomm.ftcdriverstation.FtcDriverStationActivity"
@@ -21,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
-
 
         </activity>
 
@@ -49,6 +49,6 @@
 
         </activity>
 
-
     </application>
+
 </manifest>
