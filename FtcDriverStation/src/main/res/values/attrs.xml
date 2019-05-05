@@ -1,34 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <attr name="backgroundAlmostDark" format="color" />
-    <attr name="backgroundDark" format="color" />
-    <attr name="backgroundLight" format="color" />
-    <attr name="backgroundMedium" format="color" />
-    <attr name="backgroundMediumDark" format="color" />
-    <attr name="backgroundMediumLight" format="color" />
-    <attr name="backgroundMediumMedium" format="color" />
-    <attr name="backgroundVeryDark" format="color" />
-    <attr name="backgroundVeryVeryDark" format="color" />
+
     <attr name="buttonOutline" format="reference" />
     <attr name="buttonStop" format="reference" />
     <attr name="circleMedium" format="reference" />
     <attr name="circleMediumMedium" format="reference" />
     <attr name="circleVeryVeryDark" format="reference" />
-    <attr name="feedbackBackground" format="color" />
-    <attr name="feedbackBorder" format="color" />
-    <attr name="feedbackShape" format="reference" />
-    <attr name="lineBright" format="color" />
-    <attr name="lineLight" format="color" />
-    <attr name="textBright" format="color" />
-    <attr name="textLight" format="color" />
-    <attr name="textMedium" format="color" />
-    <attr name="textMediumAlmostDark" format="color" />
-    <attr name="textMediumDark" format="color" />
-    <attr name="textMediumLight" format="color" />
-    <attr name="textMediumMedium" format="color" />
-    <attr name="textVeryDark" format="color" />
-    <attr name="textVeryVeryDark" format="color" />
-    <attr name="textWhite" format="color" />
     <attr name="timerSwitchOff" format="reference" />
-    <attr name="colors" format="reference" />
+
 </resources>
