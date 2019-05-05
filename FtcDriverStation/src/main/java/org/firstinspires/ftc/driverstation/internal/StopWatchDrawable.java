@@ -59,11 +59,6 @@ public class StopWatchDrawable extends PaintedPathDrawable
     private final float stroke = 6.0f;
     private final float width = 73.0f;
 
-    public StopWatchDrawable()
-    {
-        this(-16711936);
-    }
-
     public StopWatchDrawable(@ColorInt int color)
     {
         super(color);
@@ -99,8 +94,8 @@ public class StopWatchDrawable extends PaintedPathDrawable
         littleCircle.set(middle - ((smallDiam / 2) * scale), stemTop - (smallDiam * scale), ((smallDiam / 2) * scale) + middle, stemTop);
         this.path.addOval(littleCircle, Direction.CCW);
         this.path.moveTo(bigCircle.centerX(), bigCircle.centerY());
-        this.path.rLineTo(0.0f, -bigHand * scale);
+        this.path.rLineTo(0f, -bigHand * scale);
         this.path.moveTo(bigCircle.centerX(), bigCircle.centerY());
-        this.path.rLineTo(littleHand * scale, 0.0f);
+        this.path.rLineTo(littleHand * scale, 0f);
     }
 }

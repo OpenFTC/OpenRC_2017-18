@@ -89,6 +89,7 @@ import com.qualcomm.ftcdriverstation.FtcDriverStationSettingsActivity.Result;
 import com.qualcomm.ftcdriverstation.GamepadIndicator.State;
 import com.qualcomm.ftcdriverstation.OpModeSelectionDialogFragment.OpModeSelectionDialogListener;
 import com.qualcomm.robotcore.eventloop.EventLoopManager;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -177,7 +178,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
     protected View controlPanelBack;
     protected TextView currentOpModeName;
     protected boolean debugLogging = false;
-    protected final OpModeMeta defaultOpMode = new OpModeMeta("$Stop$Robot$");
+    protected final OpModeMeta defaultOpMode = new OpModeMeta(OpModeManager.DEFAULT_OP_MODE_NAME);
     protected DeviceNameManagerCallback deviceNameManagerCallback = new DeviceNameManagerCallback();
     protected StartResult deviceNameManagerStartResult = new StartResult();
     protected ImageView dsBatteryIcon;
@@ -488,7 +489,6 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
         return TAG;
     }
 
-    @SuppressLint("WrongViewCast")
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -535,8 +535,19 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
         controlPanelBack = findViewById(R.id.controlPanel);
         batteryInfo = findViewById(R.id.battery_info_layout);
         wifiInfo = findViewById(R.id.wifi_info_layout);
-        ((ImageButton) findViewById(R.id.buttonStartArrow)).setImageDrawable(new FilledPolygonDrawable(((ColorDrawable) findViewById(R.id.buttonStartArrowColor).getBackground()).getColor(), 3));
-        ((ImageView) findViewById(R.id.timerStopWatch)).setImageDrawable(new StopWatchDrawable(((ColorDrawable) findViewById(R.id.timerStopWatchColorHolder).getBackground()).getColor()));
+
+        ImageButton buttonStartArrow = findViewById(R.id.buttonStartArrow);
+        ImageButton buttonStartArrowColor = findViewById(R.id.buttonStartArrowColor);
+        ColorDrawable buttonStartArrowColorDrawable = (ColorDrawable) buttonStartArrowColor.getBackground();
+        FilledPolygonDrawable filledPolygonDrawable = new FilledPolygonDrawable(buttonStartArrowColorDrawable.getColor(),3 );
+        buttonStartArrow.setImageDrawable(filledPolygonDrawable);
+
+        ImageView timerStopWatch = findViewById(R.id.timerStopWatch);
+        TextView timerStopWatchColorHolder = findViewById(R.id.timerStopWatchColorHolder);
+        ColorDrawable stopWatchColorDrawable = (ColorDrawable) timerStopWatchColorHolder.getBackground();
+        StopWatchDrawable stopWatchDrawable = new StopWatchDrawable(stopWatchColorDrawable.getColor());
+        timerStopWatch.setImageDrawable(stopWatchDrawable);
+
         gamepadIndicators.put(GamepadUser.ONE, new GamepadIndicator(this, R.id.user1_icon_clicked, R.id.user1_icon_base));
         gamepadIndicators.put(GamepadUser.TWO, new GamepadIndicator(this, R.id.user2_icon_clicked, R.id.user2_icon_base));
         gamepadManager.setGamepadIndicators(gamepadIndicators);
