@@ -83,13 +83,13 @@ public class GamepadManager implements RobotCoreGamepadManager
 
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
         {
-            if (key.equals(GamepadManager.this.context.getString(R.string.pref_gamepad_user1_type_key)))
+            if (key.equals(context.getString(R.string.pref_gamepad_user1_type_key)))
             {
-                GamepadManager.this.unassignUser(GamepadUser.ONE);
+                unassignUser(GamepadUser.ONE);
             }
             else if (key.equals(GamepadManager.this.context.getString(R.string.pref_gamepad_user2_type_key)))
             {
-                GamepadManager.this.unassignUser(GamepadUser.TWO);
+                unassignUser(GamepadUser.TWO);
             }
         }
     }

@@ -146,7 +146,7 @@ public class FtcDriverStationSettingsActivity extends EditActivity
     protected void finishOk()
     {
         Bundle bundle = new Bundle();
-        bundle.putString(RESULT, this.result.serialize());
+        bundle.putString(RESULT, result.serialize());
         Intent intent = new Intent();
         intent.putExtras(bundle);
         finishOk(intent);

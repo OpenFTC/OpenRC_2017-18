@@ -74,8 +74,8 @@ public class GamepadIndicator
 
     public void initialize(Activity activity)
     {
-        this.activeView = activity.findViewById(this.idActive);
-        this.baseView = activity.findViewById(this.idBase);
+        activeView = activity.findViewById(idActive);
+        baseView = activity.findViewById(idBase);
     }
 
     public void setState(final State state)
@@ -107,7 +107,7 @@ public class GamepadIndicator
 
     protected void indicate()
     {
-        Animation fadeout = AnimationUtils.loadAnimation(this.context, R.anim.fadeout);
+        Animation fadeout = AnimationUtils.loadAnimation(context, R.anim.fadeout);
         activeView.setImageResource(R.drawable.icon_controlleractive);
         fadeout.setAnimationListener(new AnimationListener()
         {

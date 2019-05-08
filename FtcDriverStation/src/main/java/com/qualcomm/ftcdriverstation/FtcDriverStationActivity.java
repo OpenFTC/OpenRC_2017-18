@@ -295,17 +295,17 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
                 {
                     public void run()
                     {
-                        CountDownTimer existingTimer = OpModeCountDownTimer.this.countDownTimer;
+                        CountDownTimer existingTimer = countDownTimer;
                         if (existingTimer != null)
                         {
                             existingTimer.cancel();
                         }
-                        OpModeCountDownTimer.this.countDownTimer = new CountDownTimer(OpModeCountDownTimer.this.msRemaining, MS_TICK)
+                        countDownTimer = new CountDownTimer(msRemaining, MS_TICK)
                         {
                             public void onTick(long msRemaining)
                             {
                                 assertUiThread();
-                                OpModeCountDownTimer.this.setMsRemaining(msRemaining);
+                                setMsRemaining(msRemaining);
                                 RobotLog.vv(FtcDriverStationActivity.TAG, "Running current op mode for " + (msRemaining / MS_PER_S) + " seconds");
                             }
 
@@ -313,7 +313,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
                             {
                                 assertUiThread();
                                 RobotLog.vv(FtcDriverStationActivity.TAG, "Stopping current op mode, timer expired");
-                                OpModeCountDownTimer.this.resetCountdown();
+                                resetCountdown();
                                 handleOpModeStop();
                             }
                         }.start();
@@ -328,10 +328,10 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
             {
                 public void run()
                 {
-                    if (OpModeCountDownTimer.this.countDownTimer != null)
+                    if (countDownTimer != null)
                     {
-                        OpModeCountDownTimer.this.countDownTimer.cancel();
-                        OpModeCountDownTimer.this.countDownTimer = null;
+                        countDownTimer.cancel();
+                        countDownTimer = null;
                     }
                 }
             });
@@ -365,7 +365,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
         public void setMsRemaining(long msRemaining)
         {
             this.msRemaining = msRemaining;
-            if (this.enabled)
+            if (enabled)
             {
                 displaySecondsRemaining(msRemaining / MS_PER_S);
             }
@@ -1322,7 +1322,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
 
     protected void setUserTelemetry(String userTelemetry)
     {
-        setTextView(this.textTelemetry, userTelemetry);
+        setTextView(textTelemetry, userTelemetry);
     }
 
     protected void clearUserTelemetry()
@@ -1565,7 +1565,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
     {
         RobotLog.vv(TAG, dbgMsg);
         this.uiState = uiState;
-        setTextView(this.textDsUiStateIndicator, uiState.indicator);
+        setTextView(textDsUiStateIndicator, uiState.indicator);
     }
 
     protected void assumeClientConnectAndRefreshUI(ControlPanelBack controlPanelBack)
@@ -1601,7 +1601,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
     {
         boolean wasConnected = this.clientConnected;
         this.clientConnected = clientConnected;
-        this.preferencesHelper.writeBooleanPrefIfDifferent(getString(R.string.pref_rc_connected), clientConnected);
+        preferencesHelper.writeBooleanPrefIfDifferent(getString(R.string.pref_rc_connected), clientConnected);
         return wasConnected;
     }
 
