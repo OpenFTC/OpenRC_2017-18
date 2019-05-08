@@ -63,8 +63,8 @@ public class StopWatchDrawable extends PaintedPathDrawable
     {
         super(color);
 
-        this.paint.setStyle(Style.STROKE);
-        this.paint.setStrokeCap(Cap.ROUND);
+        paint.setStyle(Style.STROKE);
+        paint.setStrokeCap(Cap.ROUND);
     }
 
     public int getIntrinsicWidth()
@@ -80,22 +80,22 @@ public class StopWatchDrawable extends PaintedPathDrawable
     protected void computePath(Rect bounds)
     {
         float scale = Math.min(((float) bounds.width()) / width, ((float) bounds.height()) / height);
-        this.paint.setStrokeWidth(stroke * scale);
-        this.path = new Path();
+        paint.setStrokeWidth(stroke * scale);
+        path = new Path();
         float halfStroke = (stroke / 2) * scale;
         RectF bigCircle = new RectF();
         bigCircle.set(((float) bounds.left) + halfStroke, ((float) bounds.bottom) - (bigDiam * scale), ((float) bounds.right) - halfStroke, ((float) bounds.bottom) - halfStroke);
-        this.path.addOval(bigCircle, Direction.CCW);
+        path.addOval(bigCircle, Direction.CCW);
         float middle = bounds.exactCenterX();
         float stemTop = bigCircle.top - (stem * scale);
-        this.path.moveTo(middle, bigCircle.top);
-        this.path.lineTo(middle, stemTop);
+        path.moveTo(middle, bigCircle.top);
+        path.lineTo(middle, stemTop);
         RectF littleCircle = new RectF();
         littleCircle.set(middle - ((smallDiam / 2) * scale), stemTop - (smallDiam * scale), ((smallDiam / 2) * scale) + middle, stemTop);
-        this.path.addOval(littleCircle, Direction.CCW);
-        this.path.moveTo(bigCircle.centerX(), bigCircle.centerY());
-        this.path.rLineTo(0f, -bigHand * scale);
-        this.path.moveTo(bigCircle.centerX(), bigCircle.centerY());
-        this.path.rLineTo(littleHand * scale, 0f);
+        path.addOval(littleCircle, Direction.CCW);
+        path.moveTo(bigCircle.centerX(), bigCircle.centerY());
+        path.rLineTo(0f, -bigHand * scale);
+        path.moveTo(bigCircle.centerX(), bigCircle.centerY());
+        path.rLineTo(littleHand * scale, 0f);
     }
 }

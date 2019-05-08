@@ -111,7 +111,7 @@ public class OpModeSelectionDialogFragment extends DialogFragment
                 View result = super.getView(position, convertView, parent);
                 ImageView separator = result.findViewById(R.id.opmodeDialogItemTextSeparator);
 
-                if (position >= OpModeSelectionDialogFragment.this.opModes.size() + -1 || OpModeSelectionDialogFragment.this.opModes.get(position).group.equals(OpModeSelectionDialogFragment.this.opModes.get(position + 1).group))
+                if (position >= opModes.size() -1 || opModes.get(position).group.equals(opModes.get(position + 1).group))
                 {
                     separator.setVisibility(View.GONE);
                 }
@@ -127,9 +127,9 @@ public class OpModeSelectionDialogFragment extends DialogFragment
         {
             public void onClick(DialogInterface dialogInterface, int selectionIndex)
             {
-                if (OpModeSelectionDialogFragment.this.listener != null)
+                if (listener != null)
                 {
-                    OpModeSelectionDialogFragment.this.listener.onOpModeSelectionClick(OpModeSelectionDialogFragment.this.opModes.get(selectionIndex));
+                    listener.onOpModeSelectionClick(opModes.get(selectionIndex));
                 }
             }
         });

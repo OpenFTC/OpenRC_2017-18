@@ -767,7 +767,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
         {
             if (intent != null)
             {
-                Result settingsResult = Result.deserialize(intent.getExtras().getString("RESULT"));
+                Result settingsResult = Result.deserialize(intent.getExtras().getString(FtcDriverStationSettingsActivity.RESULT));
                 if (settingsResult.prefLogsClicked)
                 {
                     updateLoggingPrefs();
@@ -1742,9 +1742,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
     protected CallbackResult handleCommandNotifyOpModeList(String extra)
     {
         assumeClientConnect(ControlPanelBack.NO_CHANGE);
-        opModes = new Gson().fromJson(extra, new TypeToken<Collection<OpModeMeta>>()
-        {
-        }.getType());
+        opModes = new Gson().fromJson(extra, new TypeToken<Collection<OpModeMeta>>(){}.getType());
         RobotLog.vv(TAG, "Received the following op modes: " + opModes.toString());
         return CallbackResult.HANDLED;
     }
@@ -1811,7 +1809,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
 
     private CallbackResult handleCommandStartProgrammingModeResp(String extra)
     {
-        if (!(extra == null || extra.isEmpty()))
+        if (extra != null && !extra.isEmpty())
         {
             Intent remoteProgrammingModeIntent = new Intent(AppUtil.getDefContext(), RemoteProgrammingModeActivity.class);
             remoteProgrammingModeIntent.putExtra(LaunchActivityConstantsList.RC_WEB_INFO, extra);
@@ -1822,7 +1820,7 @@ public class FtcDriverStationActivity extends ThemedActivity implements NetworkC
 
     private CallbackResult handleCommandStartProgramAndManageResp(String extra)
     {
-        if (!(extra == null || extra.isEmpty()))
+        if (extra != null && !extra.isEmpty())
         {
             Intent remoteProgrammingModeIntent = new Intent(AppUtil.getDefContext(), ProgramAndManageActivity.class);
             remoteProgrammingModeIntent.putExtra(LaunchActivityConstantsList.RC_WEB_INFO, extra);
