@@ -1,5 +1,10 @@
 /*
- * Copyright (c) 2014-2016 Qualcomm Technologies Inc.
+ * NOTE: This file was reverse engineered from its original binary form in the
+ * official Driver Station APK file under the terms of the following license,
+ * which is also specified in the root of the 'FtcRobotController' directory
+ * of the official SDK repository (https://github.com/ftctechnh/ftc_app).
+ *
+ * Copyright (c) 2014-2016 Qualcomm Technologies Inc., FIRST contributors
  * Copyright (c) 2018 OpenFTC Team
  *
  * All rights reserved.
