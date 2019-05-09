@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/opmodeDialogItemText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:minHeight="?android:listPreferredItemHeightSmall"
+        android:paddingEnd="15.0dip"
+        android:paddingStart="14.0dip"
+        android:textAppearance="@style/OpModeDialogTextAppearance"/>
+
+    <ImageView
+        android:id="@+id/opmodeDialogItemTextSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_below="@id/opmodeDialogItemText"
+        android:background="?lineLight"
+        android:visibility="visible"/>
+</RelativeLayout>

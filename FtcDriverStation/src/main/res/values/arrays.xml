@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <array name="app_theme_ids">
+        <item>@style/AppThemeRedDS</item>
+        <item>@style/AppThemeGreenDS</item>
+        <item>@style/AppThemeBlueDS</item>
+        <item>@style/AppThemePurpleDS</item>
+        <item>@style/AppThemeOrangeDS</item>
+        <item>@style/AppThemeTealDS</item>
+    </array>
+
+    <string-array name="pref_gamepad_type_entries">
+        <item>@string/gamepad_logitech_f310</item>
+        <item>@string/gamepad_microsoft_xbox_360</item>
+        <item>@string/gamepad_android_standard</item>
+    </string-array>
+
+</resources>

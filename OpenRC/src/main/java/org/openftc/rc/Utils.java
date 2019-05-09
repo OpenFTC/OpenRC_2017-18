@@ -19,6 +19,15 @@ public class Utils {
         }
     }
 
+    public static boolean isFtcRobotControllerInstalled(PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo("com.qualcomm.ftcrobotcontroller", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
     public static boolean hasAcknowledgedLegalityStatus() {
         return openRcPrefs.getBoolean(AppUtil.getDefContext().getString(R.string.acknowledgedLegalityPrefKey), false);
     }

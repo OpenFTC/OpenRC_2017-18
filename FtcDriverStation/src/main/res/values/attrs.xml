@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <attr name="buttonOutline" format="reference" />
+    <attr name="buttonStop" format="reference" />
+    <attr name="circleMedium" format="reference" />
+    <attr name="circleMediumMedium" format="reference" />
+    <attr name="circleVeryVeryDark" format="reference" />
+    <attr name="timerSwitchOff" format="reference" />
+
+</resources>

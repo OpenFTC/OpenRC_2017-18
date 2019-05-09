@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        applicationId "com.qualcomm.ftcdriverstation"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 27
+        versionName "3.7"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs rootProject.file('libs')
+    }
+}
+
+
+dependencies {
+    implementation project(':RobotCore')
+    implementation project(':Hardware')
+    implementation project(':FtcCommon')
+    implementation project(':Blocks')
+    implementation project(':Inspection')
+    implementation project(':OpenRC')
+    implementation(name: 'Analytics-release', ext: 'aar')
+    implementation(name: 'WirelessP2p-release', ext: 'aar')
+}

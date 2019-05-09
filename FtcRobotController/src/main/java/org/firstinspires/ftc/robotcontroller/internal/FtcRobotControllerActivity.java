@@ -228,18 +228,9 @@ public class FtcRobotControllerActivity extends Activity {
         RobotLog.onApplicationStart();  // robustify against onCreate() following onDestroy() but using the same app instance, which apparently does happen
         RobotLog.vv(TAG, "onCreate()");
 
-    /* // Modified for OpenRC
-     * Check to see if the DS app is also installed.
-     * If it is, then show the user a dialog explaining
-     * the situation and offer them the option to uninstall
-     * either the DS app or the RC app
-     */
-        if (BuildConfig.IS_OPENRC && Utils.isFtcDriverStationInstalled(getPackageManager())) {
-            UiUtils.showDsAppInstalledDialog(this);
-        }
-
-        if(BuildConfig.IS_OPENRC && !Utils.hasAcknowledgedLegalityStatus()) {
-            UiUtils.showLegalityAcknowlegementDialog(this);
+        if(com.qualcomm.ftcrobotcontroller.BuildConfig.IS_OPENRC && !Utils.hasAcknowledgedLegalityStatus())
+        {
+            UiUtils.showLegalityAcknowlegementDialogRc(this);
         }
 
         ThemedActivity.appAppThemeToActivity(getTag(), this); // do this way instead of inherit to help AppInventor

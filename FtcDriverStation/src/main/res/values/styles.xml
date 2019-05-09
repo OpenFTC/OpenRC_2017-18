@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashTheme" parent="@android:style/Theme.Holo.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_drawable</item>
+    </style>
+
+    <style name="AppThemeBlueDS" parent="@style/AppTheme.Blue">
+        <item name="buttonOutline">@drawable/button_outline_blue</item>
+        <item name="buttonStop">@drawable/button_stop_blue</item>
+        <item name="circleMedium">@drawable/circle_medium_blue</item>
+        <item name="circleMediumMedium">@drawable/circle_medium_medium_blue</item>
+        <item name="circleVeryVeryDark">@drawable/circle_very_very_dark_blue</item>
+        <item name="timerSwitchOff">@drawable/timer_switch_off_blue</item>
+    </style>
+
+    <style name="AppThemeGreenDS" parent="@style/AppTheme.Green">
+        <item name="buttonOutline">@drawable/button_outline_green</item>
+        <item name="buttonStop">@drawable/button_stop_green</item>
+        <item name="circleMedium">@drawable/circle_medium_green</item>
+        <item name="circleMediumMedium">@drawable/circle_medium_medium_green</item>
+        <item name="circleVeryVeryDark">@drawable/circle_very_very_dark_green</item>
+        <item name="timerSwitchOff">@drawable/timer_switch_off_green</item>
+    </style>
+
+    <style name="AppThemeOrangeDS" parent="@style/AppTheme.Orange">
+        <item name="buttonOutline">@drawable/button_outline_orange</item>
+        <item name="buttonStop">@drawable/button_stop_orange</item>
+        <item name="circleMedium">@drawable/circle_medium_orange</item>
+        <item name="circleMediumMedium">@drawable/circle_medium_medium_orange</item>
+        <item name="circleVeryVeryDark">@drawable/circle_very_very_dark_orange</item>
+        <item name="timerSwitchOff">@drawable/timer_switch_off_orange</item>
+    </style>
+
+    <style name="AppThemePurpleDS" parent="@style/AppTheme.Purple">
+        <item name="buttonOutline">@drawable/button_outline_purple</item>
+        <item name="buttonStop">@drawable/button_stop_purple</item>
+        <item name="circleMedium">@drawable/circle_medium_purple</item>
+        <item name="circleMediumMedium">@drawable/circle_medium_medium_purple</item>
+        <item name="circleVeryVeryDark">@drawable/circle_very_very_dark_purple</item>
+        <item name="timerSwitchOff">@drawable/timer_switch_off_purple</item>
+    </style>
+
+    <style name="AppThemeRedDS" parent="@style/AppTheme.Red">
+        <item name="buttonOutline">@drawable/button_outline_red</item>
+        <item name="buttonStop">@drawable/button_stop_red</item>
+        <item name="circleMedium">@drawable/circle_medium_red</item>
+        <item name="circleMediumMedium">@drawable/circle_medium_medium_red</item>
+        <item name="circleVeryVeryDark">@drawable/circle_very_very_dark_red</item>
+        <item name="timerSwitchOff">@drawable/timer_switch_off_red</item>
+    </style>
+
+    <style name="AppThemeTealDS" parent="@style/AppTheme.Teal">
+        <item name="buttonOutline">@drawable/button_outline_teal</item>
+        <item name="buttonStop">@drawable/button_stop_teal</item>
+        <item name="circleMedium">@drawable/circle_medium_teal</item>
+        <item name="circleMediumMedium">@drawable/circle_medium_medium_teal</item>
+        <item name="circleVeryVeryDark">@drawable/circle_very_very_dark_teal</item>
+        <item name="timerSwitchOff">@drawable/timer_switch_off_teal</item>
+    </style>
+
+    <style name="OpModeDialogTextAppearance" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">?android:textColorAlertDialogListItem</item>
+    </style>
+
+</resources>
