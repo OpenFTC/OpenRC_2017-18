@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="gamepad_logitech_f310">Logitech F310 Gamepad</string>
+    <string name="gamepad_microsoft_xbox_360">Microsoft XBox 360 Gamepad</string>
+    <string name="gamepad_android_standard">Standard Android Gamepad</string>
+    <string name="gamepad_default">@string/gamepad_logitech_f310</string>
+    <string name="app_name">FTC Driver Station</string>
+    <string name="about_activity">About</string>
+    <string name="title_activity_settings">FTC Driver Station Settings</string>
+    <string name="title_activity_inspection_reports">FTC Driver Station Inspection Reports</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_restart_robot">Restart Robot</string>
+    <string name="action_programming_mode">Programming Mode</string>
+    <string name="action_programing_and_manage">Program &amp; Manage</string>
+    <string name="inspection_mode_menu_item">Self Inspect</string>
+    <string name="configure_robot_menu_item">Configure Robot</string>
+    <string name="action_exit_app">Exit</string>
+    <string name="dialog_title_select_op_mode">Select Op Mode</string>
+    <string name="network_connection_devices">Wifi Devices:</string>
+    <string name="wifi_direct_device_none">none - do not pair</string>
+    <string name="pair_wifi_direct">Pair With Robot Controller</string>
+    <string name="pair_wifi_direct_menu_item">Pair With Robot Controller</string>
+    <string name="pair_instructions">Make sure that the FTC Robot Controller app is open on your other device, and that both devices have wifi enabled.
+                                   \n\nChoose from the following list of Robot Controller phones. Non-matching/incorrectly named phones will not appear.
+                                   Robot Controller names need to begin with the team number matching your Driver Station.</string>
+    <string name="pair_wifi_name">This device\'s name is: </string>
+    <string name="wifi_direct_name_unknown">unknown; is WIFI turned on on this phone?</string>
+    <string name="softap_instructions">Make sure that the FTC Robot Controller app is open on your other device, that you have specified the SSID and password,
+                                    and that both devices have wifi enabled.
+                                    \n\nChoose from the following list of Robot Controller phones. Non-matching/incorrectly named phones will not appear.
+                                    Robot Controller names need to begin with the team number matching your Driver Station.</string>
+    <string name="softapWifiInfo">The password you set on the RobotController in SoftAP mode</string>
+    <string name="title_activity_config_wifi_direct">Configure Wifi Direct</string>
+    <string name="wifi_direct_update_settings">Please wait while we update the Wifi Direct settings on this device.</string>
+    <string name="packageName">@string/packageNameDriverStation</string>
+    <string name="user1_label">User 1</string>
+    <string name="user2_label">User 2</string>
+    <string name="network_connection_label">Network: </string>
+    <string name="ping_label">Ping: </string>
+    <string name="wifi_filter_switch">Filter wifi devices</string>
+    <string name="dsErrorMessage">Error: %s</string>
+    <string name="dsWarningMessage">Warning: %s</string>
+    <string name="dsToAttemptRecovery">To attempt recovery, please restart the robot.\n</string>
+    <string name="dsRobotStatus">Robot Status: %s\n</string>
+    <string name="dsUnknown">unknown</string>
+    <string name="dsGivingUpOnCommand">Giving up on command %1$s(%2$d) after %3$d attempts</string>
+    <string name="wifiStatusErrorWrongDevice">Error: Connected to wrong device</string>
+    <string name="wifiStatusDisconnected">Disconnected</string>
+    <string name="wifiStatusNotPaired">Not Paired</string>
+    <string name="wifiStatusSearching">Searching</string>
+    <string name="wifiStatusErrorConnectedAsGroupOwner">Error: Connected as Group Owner</string>
+    <string name="wifiStatusConnecting">Connecting</string>
+    <string name="wifiStatusConnected">Connected</string>
+    <string name="buttonTextSelectOpMode">Select Op Mode\n← Autonomous | TeleOp →</string>
+    <string name="toastRobotControllerBattery">Robot Controller battery</string>
+    <string name="toastRobotBattery">Robot battery minimum reset</string>
+    <string name="toastDriverStationBattery">Driver Station battery</string>
+    <string name="opmodeDialogTitleTeleOp">Select TeleOp</string>
+    <string name="opmodeDialogTitleAutonomous">Select Autonomous</string>
+
+</resources>
